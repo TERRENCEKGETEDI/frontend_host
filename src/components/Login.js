@@ -15,14 +15,27 @@ const Login = ({ onLogin }) => {
     e.preventDefault();
     setLoading(true);
     setError('');
+
     try {
       const res = await api.post('/auth/login', { email, password });
+
       const storage = rememberMe ? localStorage : sessionStorage;
+
+      // Save token + user
       storage.setItem('token', res.data.token);
       storage.setItem('user', JSON.stringify(res.data.user));
+
+      // 🔥 ADD THESE LINES TO CONFIRM THE TOKEN IS SAVED
+      console.log("Saved token:", storage.getItem('token'));
+      console.log("Saved user:", storage.getItem('user'));
+
       console.log('Login: User data stored:', res.data.user);
+
       onLogin(res.data.user);
-      const rolePath = res.data.user.role === 'team_leader' ? 'teamleader' : res.data.user.role;
+
+      const rolePath =
+        res.data.user.role === 'team_leader' ? 'teamleader' : res.data.user.role;
+
       navigate('/' + rolePath);
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed');
@@ -30,6 +43,7 @@ const Login = ({ onLogin }) => {
       setLoading(false);
     }
   };
+
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" bgcolor="#f5f5f5">
