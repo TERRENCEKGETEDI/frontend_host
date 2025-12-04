@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Use Render backend
 const api = axios.create({
-  baseURL: 'https://dpg-d4od3ni4d50c738pv8jg-a.oregon-postgres.render.com/api',
+  baseURL: 'https://backend-host-w8to.onrender.com/api',
 });
 
 // Request interceptor
