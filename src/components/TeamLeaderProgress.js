@@ -48,7 +48,8 @@ import {
   AccessTime as AccessTimeIcon,
   ExpandMore as ExpandMoreIcon,
   Timeline as TimelineIcon,
-  Speed as SpeedIcon
+  Speed as SpeedIcon,
+  Dashboard as DashboardIcon
 } from '@mui/icons-material';
 import Layout from './Layout';
 import api from '../utils/api';
@@ -213,28 +214,54 @@ const TeamLeaderProgress = ({ user, onLogout }) => {
         </Alert>
       )}
 
-      <Typography variant="h4" component="h1" gutterBottom>
-        Team Progress
-      </Typography>
+      <Box
+        display="flex"
+        alignItems="center"
+        mb={4}
+        sx={{
+          p: 2,
+          backgroundColor: 'grey.50',
+          borderRadius: 2,
+          border: '1px solid',
+          borderColor: 'grey.200',
+        }}
+      >
+        <DashboardIcon sx={{ mr: 2, fontSize: 40, color: 'success.main' }} />
+        <Typography variant="h4" component="h1" fontWeight="bold" color="success.main">
+          Team Progress
+        </Typography>
+      </Box>
 
       {/* Progress Overview Cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
+          <Card
+            sx={{
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              color: 'white',
+              boxShadow: 3,
+              borderRadius: 3,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-4px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center">
-                <TrendingUpIcon color="primary" sx={{ mr: 2, fontSize: 40 }} />
+                <TrendingUpIcon sx={{ mr: 2, fontSize: 50, color: 'white' }} />
                 <Box>
-                  <Typography color="textSecondary" gutterBottom>
+                  <Typography variant="h6" sx={{ opacity: 0.9 }}>
                     Overall Progress
                   </Typography>
-                  <Typography variant="h4">
+                  <Typography variant="h3" fontWeight="bold">
                     {getOverallProgress()}%
                   </Typography>
                   <LinearProgress
                     variant="determinate"
                     value={getOverallProgress()}
-                    sx={{ mt: 1 }}
+                    sx={{ mt: 1, bgcolor: 'rgba(255,255,255,0.3)', '& .MuiLinearProgress-bar': { bgcolor: 'white' } }}
                   />
                 </Box>
               </Box>
@@ -243,15 +270,27 @@ const TeamLeaderProgress = ({ user, onLogout }) => {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
+          <Card
+            sx={{
+              background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+              color: 'white',
+              boxShadow: 3,
+              borderRadius: 3,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-4px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center">
-                <AssignmentIcon color="info" sx={{ mr: 2, fontSize: 40 }} />
+                <AssignmentIcon sx={{ mr: 2, fontSize: 50, color: 'white' }} />
                 <Box>
-                  <Typography color="textSecondary" gutterBottom>
+                  <Typography variant="h6" sx={{ opacity: 0.9 }}>
                     Active Jobs
                   </Typography>
-                  <Typography variant="h4">
+                  <Typography variant="h3" fontWeight="bold">
                     {jobs.filter(job => job.status === 'in_progress').length}
                   </Typography>
                 </Box>
@@ -261,15 +300,27 @@ const TeamLeaderProgress = ({ user, onLogout }) => {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
+          <Card
+            sx={{
+              background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+              color: 'white',
+              boxShadow: 3,
+              borderRadius: 3,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-4px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center">
-                <GroupIcon color="success" sx={{ mr: 2, fontSize: 40 }} />
+                <GroupIcon sx={{ mr: 2, fontSize: 50, color: 'white' }} />
                 <Box>
-                  <Typography color="textSecondary" gutterBottom>
+                  <Typography variant="h6" sx={{ opacity: 0.9 }}>
                     Team Members
                   </Typography>
-                  <Typography variant="h4">
+                  <Typography variant="h3" fontWeight="bold">
                     {workload?.memberStats?.activeMembers || 0}
                   </Typography>
                 </Box>
@@ -279,15 +330,27 @@ const TeamLeaderProgress = ({ user, onLogout }) => {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
+          <Card
+            sx={{
+              background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+              color: 'white',
+              boxShadow: 3,
+              borderRadius: 3,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-4px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center">
-                <SpeedIcon color="warning" sx={{ mr: 2, fontSize: 40 }} />
+                <SpeedIcon sx={{ mr: 2, fontSize: 50, color: 'white' }} />
                 <Box>
-                  <Typography color="textSecondary" gutterBottom>
+                  <Typography variant="h6" sx={{ opacity: 0.9 }}>
                     Completion Rate
                   </Typography>
-                  <Typography variant="h4">
+                  <Typography variant="h3" fontWeight="bold">
                     {workload?.workloadStats?.completionRate || 0}%
                   </Typography>
                 </Box>
@@ -317,8 +380,32 @@ const TeamLeaderProgress = ({ user, onLogout }) => {
             <Typography>No jobs assigned yet.</Typography>
           ) : (
             jobs.map((job) => (
-              <Accordion key={job.id} sx={{ mb: 2 }}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Accordion
+                key={job.id}
+                sx={{
+                  mb: 2,
+                  boxShadow: 2,
+                  borderRadius: 2,
+                  border: '1px solid',
+                  borderColor: 'grey.200',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    boxShadow: 4,
+                    transform: 'translateY(-1px)',
+                  },
+                  '&:before': {
+                    display: 'none',
+                  },
+                }}
+              >
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  sx={{
+                    '& .MuiAccordionSummary-content': {
+                      alignItems: 'center',
+                    },
+                  }}
+                >
                   <Box display="flex" alignItems="center" width="100%">
                     <Typography variant="h6" sx={{ flexGrow: 1 }}>
                       {job.Incident?.title || 'Unknown Incident'}
@@ -327,6 +414,7 @@ const TeamLeaderProgress = ({ user, onLogout }) => {
                       label={job.status.replace('_', ' ')}
                       color={getStatusColor(job.status)}
                       size="small"
+                      variant="outlined"
                       sx={{ mr: 2 }}
                     />
                     <Button
@@ -401,16 +489,23 @@ const TeamLeaderProgress = ({ user, onLogout }) => {
           {workerPerformance.length === 0 ? (
             <Typography>No worker data available.</Typography>
           ) : (
-            <TableContainer component={Paper}>
+            <TableContainer
+              component={Paper}
+              sx={{
+                boxShadow: 3,
+                borderRadius: 3,
+                overflow: 'hidden',
+              }}
+            >
               <Table>
-                <TableHead>
+                <TableHead sx={{ backgroundColor: 'primary.main' }}>
                   <TableRow>
-                    <TableCell>Worker</TableCell>
-                    <TableCell>Total Tasks</TableCell>
-                    <TableCell>Completed</TableCell>
-                    <TableCell>In Progress</TableCell>
-                    <TableCell>Completion Rate</TableCell>
-                    <TableCell>Performance</TableCell>
+                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Worker</TableCell>
+                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Total Tasks</TableCell>
+                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Completed</TableCell>
+                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>In Progress</TableCell>
+                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Completion Rate</TableCell>
+                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Performance</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -419,7 +514,13 @@ const TeamLeaderProgress = ({ user, onLogout }) => {
                       ? Math.round((worker.completedTasks / worker.totalTasks) * 100)
                       : 0;
                     return (
-                      <TableRow key={index}>
+                      <TableRow
+                        key={index}
+                        sx={{
+                          '&:nth-of-type(odd)': { backgroundColor: 'action.hover' },
+                          '&:hover': { backgroundColor: 'action.selected' },
+                        }}
+                      >
                         <TableCell>
                           <Box display="flex" alignItems="center">
                             <Avatar sx={{ mr: 2, width: 32, height: 32 }}>
@@ -460,9 +561,19 @@ const TeamLeaderProgress = ({ user, onLogout }) => {
           {workload && (
             <Grid container spacing={3}>
               <Grid item xs={12} md={6}>
-                <Card>
+                <Card
+                  sx={{
+                    boxShadow: 3,
+                    borderRadius: 3,
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      boxShadow: 6,
+                      transform: 'translateY(-2px)',
+                    },
+                  }}
+                >
                   <CardContent>
-                    <Typography variant="h6" gutterBottom>
+                    <Typography variant="h6" gutterBottom fontWeight="bold">
                       Workload Statistics
                     </Typography>
                     <Box sx={{ mb: 2 }}>
@@ -487,9 +598,19 @@ const TeamLeaderProgress = ({ user, onLogout }) => {
               </Grid>
 
               <Grid item xs={12} md={6}>
-                <Card>
+                <Card
+                  sx={{
+                    boxShadow: 3,
+                    borderRadius: 3,
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      boxShadow: 6,
+                      transform: 'translateY(-2px)',
+                    },
+                  }}
+                >
                   <CardContent>
-                    <Typography variant="h6" gutterBottom>
+                    <Typography variant="h6" gutterBottom fontWeight="bold">
                       Capacity & Performance
                     </Typography>
                     <Box sx={{ mb: 2 }}>
@@ -534,21 +655,34 @@ const TeamLeaderProgress = ({ user, onLogout }) => {
           {jobProgress.length === 0 ? (
             <Typography>No progress data available.</Typography>
           ) : (
-            <TableContainer component={Paper}>
+            <TableContainer
+              component={Paper}
+              sx={{
+                boxShadow: 3,
+                borderRadius: 3,
+                overflow: 'hidden',
+              }}
+            >
               <Table>
-                <TableHead>
+                <TableHead sx={{ backgroundColor: 'primary.main' }}>
                   <TableRow>
-                    <TableCell>Worker</TableCell>
-                    <TableCell>Task</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>Assigned</TableCell>
-                    <TableCell>Completed</TableCell>
-                    <TableCell>Actions</TableCell>
+                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Worker</TableCell>
+                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Task</TableCell>
+                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Status</TableCell>
+                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Assigned</TableCell>
+                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Completed</TableCell>
+                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {jobProgress.map((progress) => (
-                    <TableRow key={progress.id}>
+                  {jobProgress.map((progress, index) => (
+                    <TableRow
+                      key={progress.id}
+                      sx={{
+                        '&:nth-of-type(odd)': { backgroundColor: 'action.hover' },
+                        '&:hover': { backgroundColor: 'action.selected' },
+                      }}
+                    >
                       <TableCell>
                         <Box display="flex" alignItems="center">
                           <Avatar sx={{ mr: 2, width: 32, height: 32 }}>

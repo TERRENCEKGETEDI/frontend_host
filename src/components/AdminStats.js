@@ -387,12 +387,35 @@ const AdminStats = ({ user, onLogout }) => {
 
   return (
     <Layout user={user} onLogout={onLogout}>
-      <Typography variant="h4" component="h1" gutterBottom>
-        System Statistics Dashboard
-      </Typography>
+      <Box
+        display="flex"
+        alignItems="center"
+        mb={4}
+        sx={{
+          p: 2,
+          backgroundColor: 'grey.50',
+          borderRadius: 2,
+          border: '1px solid',
+          borderColor: 'grey.200',
+        }}
+      >
+        <Timeline sx={{ mr: 2, fontSize: 40, color: 'primary.main' }} />
+        <Typography variant="h3" component="h1" fontWeight="bold" color="primary.main">
+          System Statistics Dashboard
+        </Typography>
+      </Box>
 
       {/* Controls */}
-      <Card sx={{ mb: 3 }}>
+      <Card
+        sx={{
+          mb: 3,
+          boxShadow: 2,
+          borderRadius: 2,
+          border: '1px solid',
+          borderColor: 'grey.200',
+          backgroundColor: 'background.paper',
+        }}
+      >
         <CardContent>
           <Grid container spacing={2} alignItems="center">
             <Grid item xs={12} md={3}>
@@ -473,15 +496,27 @@ const AdminStats = ({ user, onLogout }) => {
       {/* Key Metrics Cards */}
       <Grid container spacing={3} sx={{ mb: 3 }}>
         <Grid item xs={12} sm={6}>
-          <Card>
+          <Card
+            sx={{
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              color: 'white',
+              boxShadow: 3,
+              borderRadius: 3,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-4px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center">
-                <People color="primary" sx={{ mr: 2 }} />
+                <People sx={{ mr: 2, fontSize: 50, color: 'white' }} />
                 <Box>
-                  <Typography color="textSecondary" gutterBottom>
+                  <Typography variant="h6" sx={{ opacity: 0.9 }}>
                     Total Users
                   </Typography>
-                  <Typography variant="h4">
+                  <Typography variant="h3" fontWeight="bold">
                     {stats?.totalUsers || 0}
                   </Typography>
                 </Box>
@@ -489,17 +524,29 @@ const AdminStats = ({ user, onLogout }) => {
             </CardContent>
           </Card>
         </Grid>
-        
+
         <Grid item xs={12} sm={6}>
-          <Card>
+          <Card
+            sx={{
+              background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+              color: 'white',
+              boxShadow: 3,
+              borderRadius: 3,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-4px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center">
-                <Timeline color="success" sx={{ mr: 2 }} />
+                <Timeline sx={{ mr: 2, fontSize: 50, color: 'white' }} />
                 <Box>
-                  <Typography color="textSecondary" gutterBottom>
+                  <Typography variant="h6" sx={{ opacity: 0.9 }}>
                     Activity Logs
                   </Typography>
-                  <Typography variant="h4">
+                  <Typography variant="h3" fontWeight="bold">
                     {stats?.totalActivityLogs || 0}
                   </Typography>
                 </Box>
@@ -513,7 +560,19 @@ const AdminStats = ({ user, onLogout }) => {
       <Grid container spacing={3}>
         {/* User Growth Chart */}
         <Grid item xs={12} lg={6}>
-          <Card>
+          <Card
+            sx={{
+              boxShadow: 3,
+              borderRadius: 3,
+              border: '1px solid',
+              borderColor: 'grey.200',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-2px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
                 <Typography variant="h6">User Growth: This {timePeriod} vs Previous {timePeriod}</Typography>
@@ -564,7 +623,19 @@ const AdminStats = ({ user, onLogout }) => {
 
         {/* Activity Logs Chart */}
         <Grid item xs={12} lg={6}>
-          <Card>
+          <Card
+            sx={{
+              boxShadow: 3,
+              borderRadius: 3,
+              border: '1px solid',
+              borderColor: 'grey.200',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-2px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
                 <Typography variant="h6">System Activity</Typography>

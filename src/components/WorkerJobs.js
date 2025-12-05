@@ -28,7 +28,9 @@ import {
   Assignment as AssignmentIcon,
   ExpandMore as ExpandMoreIcon,
   PlayArrow as PlayArrowIcon,
-  Stop as StopIcon
+  Stop as StopIcon,
+  Dashboard as DashboardIcon,
+  WorkHistory as WorkHistoryIcon
 } from '@mui/icons-material';
 import Layout from './Layout';
 import api from '../utils/api';
@@ -133,22 +135,53 @@ const WorkerJobs = ({ user, onLogout }) => {
         </Alert>
       )}
 
-      <Typography variant="h4" component="h1" gutterBottom>
-        My Jobs
-      </Typography>
+      <Box
+        display="flex"
+        alignItems="center"
+        mb={4}
+        sx={{
+          p: 2,
+          backgroundColor: 'grey.50',
+          borderRadius: 2,
+          border: '1px solid',
+          borderColor: 'grey.200',
+        }}
+      >
+        <DashboardIcon sx={{ mr: 2, fontSize: 40, color: 'primary.main' }} />
+        <Box>
+          <Typography variant="h3" component="h1" fontWeight="bold" color="primary.main">
+            My Jobs
+          </Typography>
+          <Typography variant="h6" color="textSecondary">
+            Manage your assigned tasks and progress
+          </Typography>
+        </Box>
+      </Box>
 
       {/* Stats Cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
+          <Card
+            sx={{
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              color: 'white',
+              boxShadow: 3,
+              borderRadius: 3,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-4px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center">
-                <AssignmentIcon color="primary" sx={{ mr: 2, fontSize: 40 }} />
+                <AssignmentIcon sx={{ mr: 2, fontSize: 50, color: 'white' }} />
                 <Box>
-                  <Typography color="textSecondary" gutterBottom>
+                  <Typography variant="h6" sx={{ opacity: 0.9 }}>
                     Total Jobs
                   </Typography>
-                  <Typography variant="h4">
+                  <Typography variant="h3" fontWeight="bold">
                     {stats.total}
                   </Typography>
                 </Box>
@@ -158,15 +191,27 @@ const WorkerJobs = ({ user, onLogout }) => {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
+          <Card
+            sx={{
+              background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+              color: 'white',
+              boxShadow: 3,
+              borderRadius: 3,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-4px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center">
-                <ScheduleIcon color="warning" sx={{ mr: 2, fontSize: 40 }} />
+                <ScheduleIcon sx={{ mr: 2, fontSize: 50, color: 'white' }} />
                 <Box>
-                  <Typography color="textSecondary" gutterBottom>
+                  <Typography variant="h6" sx={{ opacity: 0.9 }}>
                     Pending
                   </Typography>
-                  <Typography variant="h4">
+                  <Typography variant="h3" fontWeight="bold">
                     {stats.pending}
                   </Typography>
                 </Box>
@@ -176,15 +221,27 @@ const WorkerJobs = ({ user, onLogout }) => {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
+          <Card
+            sx={{
+              background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+              color: 'white',
+              boxShadow: 3,
+              borderRadius: 3,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-4px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center">
-                <WorkIcon color="info" sx={{ mr: 2, fontSize: 40 }} />
+                <WorkIcon sx={{ mr: 2, fontSize: 50, color: 'white' }} />
                 <Box>
-                  <Typography color="textSecondary" gutterBottom>
+                  <Typography variant="h6" sx={{ opacity: 0.9 }}>
                     In Progress
                   </Typography>
-                  <Typography variant="h4">
+                  <Typography variant="h3" fontWeight="bold">
                     {stats.working}
                   </Typography>
                 </Box>
@@ -194,15 +251,27 @@ const WorkerJobs = ({ user, onLogout }) => {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
+          <Card
+            sx={{
+              background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+              color: 'white',
+              boxShadow: 3,
+              borderRadius: 3,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-4px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center">
-                <CheckCircleIcon color="success" sx={{ mr: 2, fontSize: 40 }} />
+                <CheckCircleIcon sx={{ mr: 2, fontSize: 50, color: 'white' }} />
                 <Box>
-                  <Typography color="textSecondary" gutterBottom>
+                  <Typography variant="h6" sx={{ opacity: 0.9 }}>
                     Completed
                   </Typography>
-                  <Typography variant="h4">
+                  <Typography variant="h3" fontWeight="bold">
                     {stats.done}
                   </Typography>
                 </Box>
@@ -213,18 +282,36 @@ const WorkerJobs = ({ user, onLogout }) => {
       </Grid>
 
       {/* Jobs List */}
-      <Typography variant="h5" component="h2" gutterBottom>
-        Assigned Jobs
-      </Typography>
+      <Box display="flex" alignItems="center" mb={2} sx={{ mt: 4 }}>
+        <WorkHistoryIcon sx={{ mr: 2, fontSize: 30, color: 'secondary.main' }} />
+        <Typography variant="h5" component="h2" fontWeight="bold" color="secondary.main">
+          Assigned Jobs
+        </Typography>
+      </Box>
 
       {jobs.length === 0 ? (
         <Typography color="textSecondary">No jobs assigned yet.</Typography>
       ) : (
         jobs.map((job) => (
-          <Accordion key={job.id} sx={{ mb: 2 }}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Accordion
+            key={job.id}
+            sx={{
+              mb: 2,
+              boxShadow: 3,
+              borderRadius: 3,
+              '&:before': { display: 'none' },
+              '&.Mui-expanded': { boxShadow: 6 },
+            }}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              sx={{
+                '&:hover': { backgroundColor: 'action.hover' },
+                borderRadius: 3,
+              }}
+            >
               <Box display="flex" alignItems="center" width="100%">
-                <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
                   {job.JobCard?.Incident?.title || 'Unknown Incident'}
                 </Typography>
                 <Chip
@@ -239,7 +326,7 @@ const WorkerJobs = ({ user, onLogout }) => {
                 </Typography>
               </Box>
             </AccordionSummary>
-            <AccordionDetails>
+            <AccordionDetails sx={{ p: 3 }}>
               <Box>
                 <Typography variant="body1" gutterBottom>
                   <strong>Description:</strong> {job.JobCard?.Incident?.description || 'No description available'}

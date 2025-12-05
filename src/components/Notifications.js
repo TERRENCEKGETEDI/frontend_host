@@ -18,7 +18,7 @@ const Notifications = ({ user }) => {
 
     hasConnectedRef.current = true;
 
-    socketRef.current = io('http://localhost:5000', {
+    socketRef.current = io('https://backend-host-w8to.onrender.com', {
       auth: { token }
     });
 

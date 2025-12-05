@@ -25,11 +25,11 @@ import Profile from './components/Profile';
 import api from './utils/api';
 import './App.css';
 
-// Create theme with green/blue colors
+// Create theme with teal/blue colors
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#4CAF50', // Green
+      main: '#4ecdc4', // Teal (switched from green)
     },
     secondary: {
       main: '#2196F3', // Blue

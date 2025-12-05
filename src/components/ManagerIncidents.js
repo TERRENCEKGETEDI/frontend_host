@@ -30,7 +30,8 @@ import {
   Schedule as ScheduleIcon,
   PlayArrow as PlayArrowIcon,
   Delete as DeleteIcon,
-  Refresh as RefreshIcon
+  Refresh as RefreshIcon,
+  Report as ReportIcon
 } from '@mui/icons-material';
 import Layout from './Layout';
 import api from '../utils/api';
@@ -196,14 +197,39 @@ const ManagerIncidents = ({ user, onLogout }) => {
   return (
     <Layout user={user} onLogout={onLogout}>
       <Box sx={{ p: 3 }}>
-        <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
-          <Typography variant="h4" component="h1">
+        <Box
+          display="flex"
+          alignItems="center"
+          mb={3}
+          sx={{
+            mt: 5,
+            p: 2,
+            backgroundColor: 'grey.50',
+            borderRadius: 2,
+            border: '1px solid',
+            borderColor: 'grey.200',
+          }}
+        >
+          <ReportIcon sx={{ mr: 2, fontSize: 32, color: 'error.main' }} />
+          <Typography variant="h5" component="h1" fontWeight="bold" color="error.main">
             Incident Management
           </Typography>
+        </Box>
+
+        <Box display="flex" justifyContent="flex-end" mb={3}>
           <Button
             variant="outlined"
             onClick={fetchData}
             startIcon={<RefreshIcon />}
+            sx={{
+              borderRadius: 2,
+              fontWeight: 'bold',
+              transition: 'all 0.2s ease',
+              '&:hover': {
+                transform: 'translateY(-1px)',
+                boxShadow: 2,
+              },
+            }}
           >
             Refresh
           </Button>
@@ -231,10 +257,20 @@ const ManagerIncidents = ({ user, onLogout }) => {
 
             return (
               <Grid item size={{ xs: 12, md: 6, lg: 4 }} key={incident.id}>
-                <Card>
+                <Card
+                  sx={{
+                    boxShadow: 3,
+                    borderRadius: 3,
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      boxShadow: 6,
+                      transform: 'translateY(-4px)',
+                    },
+                  }}
+                >
                   <CardContent>
                     <Box display="flex" justifyContent="space-between" alignItems="flex-start" mb={2}>
-                      <Typography variant="h6" component="h2">
+                      <Typography variant="h6" component="h2" fontWeight="bold">
                         {incident.title}
                       </Typography>
                       <Chip
@@ -242,6 +278,12 @@ const ManagerIncidents = ({ user, onLogout }) => {
                         label={incident.status.replace('_', ' ').toUpperCase()}
                         color={getStatusColor(incident.status)}
                         size="small"
+                        sx={{
+                          fontWeight: 'bold',
+                          '& .MuiChip-icon': {
+                            fontSize: 16,
+                          },
+                        }}
                       />
                     </Box>
 
@@ -249,8 +291,16 @@ const ManagerIncidents = ({ user, onLogout }) => {
                       {incident.description}
                     </Typography>
 
-                    <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
-                      <Typography variant="subtitle2" gutterBottom>
+                    <Paper
+                      variant="outlined"
+                      sx={{
+                        p: 2,
+                        mb: 2,
+                        borderRadius: 2,
+                        backgroundColor: 'grey.50',
+                      }}
+                    >
+                      <Typography variant="subtitle2" gutterBottom fontWeight="bold">
                         Location & Details:
                       </Typography>
                       <Typography variant="body2">
@@ -259,19 +309,29 @@ const ManagerIncidents = ({ user, onLogout }) => {
                     </Paper>
 
                     {jobCard ? (
-                      <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
+                      <Paper
+                        variant="outlined"
+                        sx={{
+                          p: 2,
+                          mb: 2,
+                          borderRadius: 2,
+                          backgroundColor: 'success.50',
+                          borderColor: 'success.200',
+                        }}
+                      >
                         <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
-                          <Typography variant="subtitle2">
+                          <Typography variant="subtitle2" fontWeight="bold">
                             Assigned Team:
                           </Typography>
                           <Chip
                             label={getProgressLabel(progressStatus)}
                             color={getProgressColor(progressStatus)}
                             size="small"
+                            sx={{ fontWeight: 'bold' }}
                           />
                         </Box>
-                        
-                        <Typography variant="body1" fontWeight="bold" color="primary">
+
+                        <Typography variant="body1" fontWeight="bold" color="success.main">
                           {jobCard.Team?.name || 'Unknown Team'}
                         </Typography>
 
@@ -282,6 +342,15 @@ const ManagerIncidents = ({ user, onLogout }) => {
                             color="error"
                             startIcon={<DeleteIcon />}
                             onClick={() => handleRemoveTeam(incident.id)}
+                            sx={{
+                              borderRadius: 2,
+                              fontWeight: 'bold',
+                              transition: 'all 0.2s ease',
+                              '&:hover': {
+                                transform: 'translateY(-1px)',
+                                boxShadow: 2,
+                              },
+                            }}
                           >
                             Remove Team
                           </Button>
@@ -289,12 +358,12 @@ const ManagerIncidents = ({ user, onLogout }) => {
 
                         {jobCard.WorkerProgress && jobCard.WorkerProgress.length > 0 && (
                           <Box mt={2}>
-                            <Typography variant="caption" color="text.secondary">
+                            <Typography variant="caption" color="text.secondary" fontWeight="bold">
                               Team Members Progress:
                             </Typography>
                             <List dense>
                               {jobCard.WorkerProgress.map((progress) => (
-                                <ListItem key={progress.id} sx={{ py: 0.5 }}>
+                                <ListItem key={progress.id} sx={{ py: 0.5, px: 0 }}>
                                   <ListItemText
                                     primary={
                                       <Box display="flex" justifyContent="space-between">
@@ -305,6 +374,7 @@ const ManagerIncidents = ({ user, onLogout }) => {
                                           label={progress.status.replace('_', ' ')}
                                           size="small"
                                           color={progress.status === 'completed' ? 'success' : 'default'}
+                                          variant="outlined"
                                         />
                                       </Box>
                                     }
@@ -316,8 +386,18 @@ const ManagerIncidents = ({ user, onLogout }) => {
                         )}
                       </Paper>
                     ) : (
-                      <Paper variant="outlined" sx={{ p: 2, mb: 2, textAlign: 'center' }}>
-                        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                      <Paper
+                        variant="outlined"
+                        sx={{
+                          p: 2,
+                          mb: 2,
+                          textAlign: 'center',
+                          borderRadius: 2,
+                          backgroundColor: 'warning.50',
+                          borderColor: 'warning.200',
+                        }}
+                      >
+                        <Typography variant="body2" color="text.secondary" sx={{ mb: 2, fontStyle: 'italic' }}>
                           No team assigned
                         </Typography>
                         {availableTeams.length > 0 ? (
@@ -325,20 +405,30 @@ const ManagerIncidents = ({ user, onLogout }) => {
                             variant="contained"
                             size="small"
                             onClick={() => handleAssignTeamDialog(incident)}
+                            color="warning"
+                            sx={{
+                              borderRadius: 2,
+                              fontWeight: 'bold',
+                              transition: 'all 0.2s ease',
+                              '&:hover': {
+                                transform: 'translateY(-1px)',
+                                boxShadow: 2,
+                              },
+                            }}
                           >
                             Assign Team
                           </Button>
                         ) : (
-                          <Typography variant="caption" color="text.secondary">
+                          <Typography variant="caption" color="text.secondary" fontStyle="italic">
                             No available teams
                           </Typography>
                         )}
                       </Paper>
                     )}
 
-                    <Divider sx={{ my: 2 }} />
+                    <Divider sx={{ my: 2, borderColor: 'grey.300' }} />
 
-                    <Typography variant="caption" color="text.secondary">
+                    <Typography variant="caption" color="text.secondary" sx={{ fontStyle: 'italic' }}>
                       Created: {new Date(incident.created_at).toLocaleDateString()}
                     </Typography>
                   </CardContent>
@@ -349,24 +439,76 @@ const ManagerIncidents = ({ user, onLogout }) => {
         </Grid>
 
         {incidents.length === 0 && (
-          <Paper sx={{ p: 4, textAlign: 'center' }}>
-            <Typography variant="h6" color="text.secondary">
+          <Card
+            sx={{
+              p: 6,
+              textAlign: 'center',
+              boxShadow: 3,
+              borderRadius: 3,
+              backgroundColor: 'grey.50',
+            }}
+          >
+            <ReportIcon sx={{ fontSize: 64, color: 'grey.400', mb: 2 }} />
+            <Typography variant="h6" color="text.secondary" gutterBottom>
               No incidents found
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              All incidents will appear here
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+              All incidents will appear here once reported
             </Typography>
-          </Paper>
+            <Button
+              variant="outlined"
+              startIcon={<RefreshIcon />}
+              onClick={fetchData}
+              sx={{
+                borderRadius: 2,
+                px: 4,
+                py: 1.5,
+                fontWeight: 'bold',
+              }}
+            >
+              Refresh to Check
+            </Button>
+          </Card>
         )}
 
         {/* Assign Team Dialog */}
-        <Dialog open={assignTeamDialog} onClose={() => setAssignTeamDialog(false)}>
-          <DialogTitle>Assign Team to Incident</DialogTitle>
-          <DialogContent>
-            <Typography variant="body2" sx={{ mb: 2 }}>
+        <Dialog
+          open={assignTeamDialog}
+          onClose={() => setAssignTeamDialog(false)}
+          maxWidth="sm"
+          fullWidth
+          PaperProps={{
+            sx: {
+              borderRadius: 3,
+              boxShadow: 6,
+            },
+          }}
+        >
+          <DialogTitle
+            sx={{
+              pb: 1,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
+            }}
+          >
+            <AssignmentIcon sx={{ color: 'primary.main' }} />
+            <Typography variant="h6" fontWeight="bold">
+              Assign Team to Incident
+            </Typography>
+          </DialogTitle>
+          <DialogContent sx={{ pt: 1 }}>
+            <Typography variant="body2" sx={{ mb: 2, fontStyle: 'italic' }}>
               {selectedIncident?.title}
             </Typography>
-            <FormControl fullWidth>
+            <FormControl
+              fullWidth
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  borderRadius: 2,
+                },
+              }}
+            >
               <InputLabel>Select Team</InputLabel>
               <Select
                 value={selectedTeam}
@@ -386,9 +528,31 @@ const ManagerIncidents = ({ user, onLogout }) => {
               </Select>
             </FormControl>
           </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setAssignTeamDialog(false)}>Cancel</Button>
-            <Button onClick={handleAssignTeam} variant="contained">
+          <DialogActions sx={{ p: 3, pt: 1 }}>
+            <Button
+              onClick={() => setAssignTeamDialog(false)}
+              sx={{
+                borderRadius: 2,
+                px: 3,
+                fontWeight: 'bold',
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleAssignTeam}
+              variant="contained"
+              sx={{
+                borderRadius: 2,
+                px: 3,
+                fontWeight: 'bold',
+                transition: 'all 0.2s ease',
+                '&:hover': {
+                  transform: 'translateY(-1px)',
+                  boxShadow: 4,
+                },
+              }}
+            >
               Assign Team
             </Button>
           </DialogActions>

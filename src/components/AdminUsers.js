@@ -23,7 +23,8 @@ import {
   Alert,
   Box,
   Tooltip,
-  InputAdornment
+  InputAdornment,
+  Card
 } from '@mui/material';
 import {
   Add as AddIcon,
@@ -33,7 +34,9 @@ import {
   Delete as DeleteIcon,
   Search as SearchIcon,
   FilterList as FilterIcon,
-  Clear as ClearIcon
+  Clear as ClearIcon,
+  People as PeopleIcon,
+  Dashboard as DashboardIcon
 } from '@mui/icons-material';
 import Layout from './Layout';
 import api from '../utils/api';
@@ -265,20 +268,57 @@ const AdminUsers = ({ user, onLogout }) => {
 
   return (
     <Layout user={user} onLogout={onLogout}>
-      <Box sx={{ mb: 3 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
+      <Box
+        display="flex"
+        alignItems="center"
+        mb={4}
+        sx={{
+          p: 2,
+          backgroundColor: 'grey.50',
+          borderRadius: 2,
+          border: '1px solid',
+          borderColor: 'grey.200',
+        }}
+      >
+        <PeopleIcon sx={{ mr: 2, fontSize: 40, color: 'primary.main' }} />
+        <Typography variant="h3" component="h1" fontWeight="bold" color="primary.main">
           Users Management
         </Typography>
-        
-        {/* Search and Filter Controls */}
-        <Box sx={{ display: 'flex', gap: 2, mb: 2, flexWrap: 'wrap', alignItems: 'center' }}>
-          <Button
-            variant="contained"
-            startIcon={<AddIcon />}
-            onClick={() => setAddDialogOpen(true)}
-          >
-            Add New User
-          </Button>
+      </Box>
+
+      {/* Search and Filter Controls */}
+      <Box
+        sx={{
+          display: 'flex',
+          gap: 2,
+          mb: 3,
+          flexWrap: 'wrap',
+          alignItems: 'center',
+          p: 2,
+          backgroundColor: 'background.paper',
+          borderRadius: 2,
+          border: '1px solid',
+          borderColor: 'grey.200',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+        }}
+      >
+        <Button
+          variant="contained"
+          startIcon={<AddIcon />}
+          onClick={() => setAddDialogOpen(true)}
+          sx={{
+            background: 'linear-gradient(135deg, #4CAF50 0%, #45a049 100%)',
+            boxShadow: '0 4px 12px rgba(76, 175, 80, 0.3)',
+            '&:hover': {
+              background: 'linear-gradient(135deg, #45a049 0%, #3d8b40 100%)',
+              boxShadow: '0 6px 16px rgba(76, 175, 80, 0.4)',
+              transform: 'translateY(-2px)',
+            },
+            transition: 'all 0.3s ease',
+          }}
+        >
+          Add New User
+        </Button>
           
           {/* Search Bar */}
           <TextField
@@ -373,20 +413,39 @@ const AdminUsers = ({ user, onLogout }) => {
             {success}
           </Alert>
         )}
-      </Box>
 
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Phone</TableCell>
-              <TableCell>Role</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Actions</TableCell>
-            </TableRow>
-          </TableHead>
+      <Card
+        sx={{
+          boxShadow: 2,
+          borderRadius: 2,
+          border: '1px solid',
+          borderColor: 'grey.200',
+          overflow: 'hidden',
+        }}
+      >
+        <TableContainer>
+          <Table>
+            <TableHead
+              sx={{
+                background: 'linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)',
+                '& th': {
+                  color: 'white',
+                  fontWeight: 'bold',
+                  fontSize: '0.95rem',
+                  borderBottom: 'none',
+                  textShadow: '0 1px 2px rgba(0,0,0,0.1)',
+                }
+              }}
+            >
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>Phone</TableCell>
+                <TableCell>Role</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Actions</TableCell>
+              </TableRow>
+            </TableHead>
           <TableBody>
             {filteredUsers.length === 0 ? (
               <TableRow>
@@ -409,16 +468,45 @@ const AdminUsers = ({ user, onLogout }) => {
                 </TableCell>
               </TableRow>
             ) : (
-              filteredUsers.map(u => (
-                <TableRow key={u.id}>
-                  <TableCell>{u.name}</TableCell>
-                  <TableCell>{u.email}</TableCell>
-                  <TableCell>{u.phone || 'N/A'}</TableCell>
+              filteredUsers.map((u, index) => (
+                <TableRow
+                  key={u.id}
+                  sx={{
+                    '&:nth-of-type(odd)': {
+                      backgroundColor: 'grey.25',
+                    },
+                    '&:nth-of-type(even)': {
+                      backgroundColor: 'background.paper',
+                    },
+                    '&:hover': {
+                      backgroundColor: 'primary.50',
+                      transform: 'scale(1.002)',
+                      transition: 'all 0.2s ease',
+                      boxShadow: 'inset 0 0 0 1px rgba(25, 118, 210, 0.1)',
+                    },
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  <TableCell sx={{ fontWeight: 500, color: 'text.primary' }}>
+                    {u.name}
+                  </TableCell>
+                  <TableCell sx={{ color: 'text.secondary' }}>
+                    {u.email}
+                  </TableCell>
+                  <TableCell sx={{ color: 'text.secondary' }}>
+                    {u.phone || 'N/A'}
+                  </TableCell>
                   <TableCell>
                     <Chip
                       label={u.role.replace('_', ' ')}
                       color={getRoleColor(u.role)}
                       size="small"
+                      variant="filled"
+                      sx={{
+                        fontWeight: 'bold',
+                        fontSize: '0.75rem',
+                        boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+                      }}
                     />
                   </TableCell>
                   <TableCell>
@@ -426,40 +514,72 @@ const AdminUsers = ({ user, onLogout }) => {
                       label={u.status || 'active'}
                       color={getStatusColor(u.status)}
                       size="small"
+                      variant="filled"
+                      sx={{
+                        fontWeight: 'bold',
+                        fontSize: '0.75rem',
+                        boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+                      }}
                     />
                   </TableCell>
                   <TableCell>
                     <Box sx={{ display: 'flex', gap: 1 }}>
-                      <Tooltip title="Edit User">
-                        <IconButton
-                          size="small"
-                          onClick={() => openEditDialog(u)}
-                          color="primary"
-                        >
-                          <EditIcon />
-                        </IconButton>
-                      </Tooltip>
-                      
-                      <Tooltip title={u.status === 'blocked' ? 'Unblock User' : 'Block User'}>
-                        <IconButton
-                          size="small"
-                          onClick={() => handleBlockUnblock(u)}
-                          color={u.status === 'blocked' ? 'success' : 'warning'}
-                        >
-                          {u.status === 'blocked' ? <UnblockIcon /> : <BlockIcon />}
-                        </IconButton>
-                      </Tooltip>
-                      
-                      <Tooltip title="Delete User">
-                        <IconButton
-                          size="small"
-                          onClick={() => handleDeleteUser(u)}
-                          color="error"
-                          disabled={u.id === user.id} // Prevent self-deletion
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </Tooltip>
+                      <Box
+                        sx={{
+                          p: 1,
+                          borderRadius: '50%',
+                          backgroundColor: 'primary.50',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s ease',
+                          '&:hover': {
+                            backgroundColor: 'primary.main',
+                            transform: 'scale(1.1)',
+                          },
+                        }}
+                        onClick={() => openEditDialog(u)}
+                      >
+                        <EditIcon sx={{ fontSize: 18, color: 'primary.main' }} />
+                      </Box>
+
+                      <Box
+                        sx={{
+                          p: 1,
+                          borderRadius: '50%',
+                          backgroundColor: u.status === 'blocked' ? 'success.50' : 'warning.50',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s ease',
+                          '&:hover': {
+                            backgroundColor: u.status === 'blocked' ? 'success.main' : 'warning.main',
+                            transform: 'scale(1.1)',
+                          },
+                        }}
+                        onClick={() => handleBlockUnblock(u)}
+                      >
+                        {u.status === 'blocked' ?
+                          <UnblockIcon sx={{ fontSize: 18, color: 'success.main' }} /> :
+                          <BlockIcon sx={{ fontSize: 18, color: 'warning.main' }} />
+                        }
+                      </Box>
+
+                      <Box
+                        sx={{
+                          p: 1,
+                          borderRadius: '50%',
+                          backgroundColor: 'error.50',
+                          cursor: u.id === user.id ? 'not-allowed' : 'pointer',
+                          transition: 'all 0.2s ease',
+                          '&:hover': {
+                            backgroundColor: u.id === user.id ? 'error.50' : 'error.main',
+                            transform: u.id === user.id ? 'none' : 'scale(1.1)',
+                          },
+                        }}
+                        onClick={() => u.id !== user.id && handleDeleteUser(u)}
+                      >
+                        <DeleteIcon sx={{
+                          fontSize: 18,
+                          color: u.id === user.id ? 'text.disabled' : 'error.main'
+                        }} />
+                      </Box>
                     </Box>
                   </TableCell>
                 </TableRow>
@@ -468,6 +588,7 @@ const AdminUsers = ({ user, onLogout }) => {
           </TableBody>
         </Table>
       </TableContainer>
+    </Card>
 
       {/* Add User Dialog */}
       <Dialog open={addDialogOpen} onClose={() => setAddDialogOpen(false)} maxWidth="sm" fullWidth>

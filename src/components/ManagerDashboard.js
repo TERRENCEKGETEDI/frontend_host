@@ -25,7 +25,11 @@ import {
   Message as MessageIcon,
   FileDownload as FileDownloadIcon,
   Refresh as RefreshIcon,
-  Warning as WarningIcon
+  Warning as WarningIcon,
+  Dashboard as DashboardIcon,
+  ListAlt as ListAltIcon,
+  People as PeopleIcon,
+  BarChart as BarChartIcon
 } from '@mui/icons-material';
 import Layout from './Layout';
 import IncidentHeatmap from './IncidentHeatmap';
@@ -164,34 +168,46 @@ const ManagerDashboard = ({ user, onLogout }) => {
 
   return (
     <Layout user={user} onLogout={onLogout}>
-      <Box sx={{ p: 3 }}>
-        <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
-          <Box>
-            <Typography variant="h4" component="h1" gutterBottom>
-              Manager Dashboard
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              Welcome back, {user.name}
-            </Typography>
-          </Box>
-          <Box display="flex" gap={1}>
-            <Button
-              variant="outlined"
-              startIcon={<RefreshIcon />}
-              onClick={fetchDashboardData}
-            >
-              Refresh
-            </Button>
-            <Button
-              variant="contained"
-              startIcon={<FileDownloadIcon />}
-              onClick={handleDownloadReport}
-              disabled={reportGenerating}
-            >
-              {reportGenerating ? 'Generating...' : 'Download Report'}
-            </Button>
-          </Box>
-        </Box>
+      <Box
+        display="flex"
+        alignItems="center"
+        mb={3}
+        sx={{
+          mt: 5,
+          p: 2,
+          backgroundColor: 'grey.50',
+          borderRadius: 2,
+          border: '1px solid',
+          borderColor: 'grey.200',
+        }}
+      >
+        <DashboardIcon sx={{ mr: 2, fontSize: 32, color: 'primary.main' }} />
+        <Typography variant="h5" component="h2" fontWeight="bold" color="primary.main">
+          Manager Dashboard
+        </Typography>
+      </Box>
+
+      <Typography variant="h6" color="text.secondary" sx={{ mb: 4, textAlign: 'center' }}>
+        Welcome back, {user.name}. Monitor team performance and incident management.
+      </Typography>
+
+      <Box display="flex" justifyContent="flex-end" gap={1} mb={3}>
+        <Button
+          variant="outlined"
+          startIcon={<RefreshIcon />}
+          onClick={fetchDashboardData}
+        >
+          Refresh
+        </Button>
+        <Button
+          variant="contained"
+          startIcon={<FileDownloadIcon />}
+          onClick={handleDownloadReport}
+          disabled={reportGenerating}
+        >
+          {reportGenerating ? 'Generating...' : 'Download Report'}
+        </Button>
+      </Box>
 
         {error && (
           <Alert severity="warning" sx={{ mb: 2 }} onClose={() => setError('')}>
@@ -200,17 +216,53 @@ const ManagerDashboard = ({ user, onLogout }) => {
         )}
 
         {/* Quick Actions */}
-        <Paper sx={{ p: 2, mb: 3 }}>
-          <Typography variant="h6" gutterBottom>
+        <Box
+          display="flex"
+          alignItems="center"
+          mb={3}
+          sx={{
+            mt: 4,
+            p: 2,
+            backgroundColor: 'grey.50',
+            borderRadius: 2,
+            border: '1px solid',
+            borderColor: 'grey.200',
+          }}
+        >
+          <ListAltIcon sx={{ mr: 2, fontSize: 30, color: 'secondary.main' }} />
+          <Typography variant="h5" component="h2" fontWeight="bold" color="secondary.main">
             Quick Actions
           </Typography>
-          <Grid container spacing={2}>
+        </Box>
+        <Card
+          sx={{
+            p: 3,
+            mb: 3,
+            boxShadow: 3,
+            borderRadius: 3,
+            transition: 'all 0.3s ease',
+            '&:hover': { boxShadow: 6 },
+          }}
+        >
+          <Grid container spacing={3}>
             <Grid item xs={12} sm={6} md={3}>
               <Button
                 fullWidth
                 variant="outlined"
                 startIcon={<GroupsIcon />}
                 href="#/teams"
+                sx={{
+                  py: 2,
+                  fontWeight: 'bold',
+                  borderRadius: 2,
+                  transition: 'all 0.2s ease',
+                  '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: 4,
+                    backgroundColor: 'primary.main',
+                    color: 'white',
+                  },
+                }}
               >
                 Manage Teams
               </Button>
@@ -221,6 +273,18 @@ const ManagerDashboard = ({ user, onLogout }) => {
                 variant="outlined"
                 startIcon={<AssignmentIcon />}
                 href="#/incidents"
+                sx={{
+                  py: 2,
+                  fontWeight: 'bold',
+                  borderRadius: 2,
+                  transition: 'all 0.2s ease',
+                  '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: 4,
+                    backgroundColor: 'warning.main',
+                    color: 'white',
+                  },
+                }}
               >
                 View Incidents
               </Button>
@@ -231,6 +295,18 @@ const ManagerDashboard = ({ user, onLogout }) => {
                 variant="outlined"
                 startIcon={<TrendingUpIcon />}
                 href="#/stats"
+                sx={{
+                  py: 2,
+                  fontWeight: 'bold',
+                  borderRadius: 2,
+                  transition: 'all 0.2s ease',
+                  '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: 4,
+                    backgroundColor: 'success.main',
+                    color: 'white',
+                  },
+                }}
               >
                 View Statistics
               </Button>
@@ -241,37 +317,69 @@ const ManagerDashboard = ({ user, onLogout }) => {
                 variant="outlined"
                 startIcon={<MessageIcon />}
                 onClick={() => setMessageDialog(true)}
+                sx={{
+                  py: 2,
+                  fontWeight: 'bold',
+                  borderRadius: 2,
+                  transition: 'all 0.2s ease',
+                  '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: 4,
+                    backgroundColor: 'secondary.main',
+                    color: 'white',
+                  },
+                }}
               >
                 Send Message
               </Button>
             </Grid>
           </Grid>
-        </Paper>
+        </Card>
 
         {/* Summary Cards */}
         <Grid container spacing={3} sx={{ mb: 4 }}>
           <Grid item xs={12} sm={6} md={3}>
-            <Card>
+            <Card
+              sx={{
+                boxShadow: 3,
+                borderRadius: 3,
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  boxShadow: 6,
+                  transform: 'translateY(-4px)',
+                },
+              }}
+            >
               <CardContent sx={{ textAlign: 'center' }}>
-                <AssignmentIcon color="primary" sx={{ fontSize: 40, mb: 1 }} />
-                <Typography variant="h4" color="primary">
+                <AssignmentIcon color="primary" sx={{ fontSize: 50, mb: 1 }} />
+                <Typography variant="h3" color="primary" fontWeight="bold">
                   {stats?.summary?.totalIncidents || 0}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="h6" color="text.secondary">
                   Total Incidents
                 </Typography>
               </CardContent>
             </Card>
           </Grid>
-          
+
           <Grid item xs={12} sm={6} md={3}>
-            <Card>
+            <Card
+              sx={{
+                boxShadow: 3,
+                borderRadius: 3,
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  boxShadow: 6,
+                  transform: 'translateY(-4px)',
+                },
+              }}
+            >
               <CardContent sx={{ textAlign: 'center' }}>
-                <GroupsIcon color="primary" sx={{ fontSize: 40, mb: 1 }} />
-                <Typography variant="h4" color="primary">
+                <GroupsIcon color="secondary" sx={{ fontSize: 50, mb: 1 }} />
+                <Typography variant="h3" color="secondary" fontWeight="bold">
                   {stats?.summary?.totalTeams || 0}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="h6" color="text.secondary">
                   Total Teams
                 </Typography>
               </CardContent>
@@ -279,13 +387,23 @@ const ManagerDashboard = ({ user, onLogout }) => {
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <Card>
+            <Card
+              sx={{
+                boxShadow: 3,
+                borderRadius: 3,
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  boxShadow: 6,
+                  transform: 'translateY(-4px)',
+                },
+              }}
+            >
               <CardContent sx={{ textAlign: 'center' }}>
-                <CheckCircleIcon color="success" sx={{ fontSize: 40, mb: 1 }} />
-                <Typography variant="h4" color="success.main">
+                <CheckCircleIcon color="success" sx={{ fontSize: 50, mb: 1 }} />
+                <Typography variant="h3" color="success" fontWeight="bold">
                   {stats?.summary?.totalMembers || 0}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="h6" color="text.secondary">
                   Team Members
                 </Typography>
               </CardContent>
@@ -293,13 +411,23 @@ const ManagerDashboard = ({ user, onLogout }) => {
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <Card>
+            <Card
+              sx={{
+                boxShadow: 3,
+                borderRadius: 3,
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  boxShadow: 6,
+                  transform: 'translateY(-4px)',
+                },
+              }}
+            >
               <CardContent sx={{ textAlign: 'center' }}>
-                <TrendingUpIcon color="secondary" sx={{ fontSize: 40, mb: 1 }} />
-                <Typography variant="h4" color="secondary.main">
+                <TrendingUpIcon color="warning" sx={{ fontSize: 50, mb: 1 }} />
+                <Typography variant="h3" color="warning" fontWeight="bold">
                   {stats?.summary?.averageCompletionRate || 0}%
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="h6" color="text.secondary">
                   Avg Completion Rate
                 </Typography>
               </CardContent>
@@ -310,11 +438,33 @@ const ManagerDashboard = ({ user, onLogout }) => {
         <Grid container spacing={3}>
           {/* Recent Incidents */}
           <Grid item xs={12} md={6}>
-            <Card>
+            <Box
+              display="flex"
+              alignItems="center"
+              mb={2}
+              sx={{
+                mt: 4,
+                p: 2,
+                backgroundColor: 'grey.50',
+                borderRadius: 2,
+                border: '1px solid',
+                borderColor: 'grey.200',
+              }}
+            >
+              <AssignmentIcon sx={{ mr: 2, fontSize: 30, color: 'warning.main' }} />
+              <Typography variant="h5" component="h2" fontWeight="bold" color="warning.main">
+                Recent Incidents
+              </Typography>
+            </Box>
+            <Card
+              sx={{
+                boxShadow: 3,
+                borderRadius: 3,
+                transition: 'all 0.3s ease',
+                '&:hover': { boxShadow: 6 },
+              }}
+            >
               <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  Recent Incidents
-                </Typography>
                 {recentIncidents.length > 0 ? (
                   <List>
                     {recentIncidents.map((incident, index) => (
@@ -364,11 +514,33 @@ const ManagerDashboard = ({ user, onLogout }) => {
 
           {/* Team Overview */}
           <Grid item xs={12} md={6}>
-            <Card>
+            <Box
+              display="flex"
+              alignItems="center"
+              mb={2}
+              sx={{
+                mt: 4,
+                p: 2,
+                backgroundColor: 'grey.50',
+                borderRadius: 2,
+                border: '1px solid',
+                borderColor: 'grey.200',
+              }}
+            >
+              <PeopleIcon sx={{ mr: 2, fontSize: 30, color: 'success.main' }} />
+              <Typography variant="h5" component="h2" fontWeight="bold" color="success.main">
+                Team Overview
+              </Typography>
+            </Box>
+            <Card
+              sx={{
+                boxShadow: 3,
+                borderRadius: 3,
+                transition: 'all 0.3s ease',
+                '&:hover': { boxShadow: 6 },
+              }}
+            >
               <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  Team Overview
-                </Typography>
                 {teams.length > 0 ? (
                   <List>
                     {teams.map((team, index) => {
@@ -433,33 +605,94 @@ const ManagerDashboard = ({ user, onLogout }) => {
         </Grid>
 
         {/* Incident Heatmap */}
+        <Box
+          display="flex"
+          alignItems="center"
+          mb={2}
+          sx={{
+            mt: 4,
+            p: 2,
+            backgroundColor: 'grey.50',
+            borderRadius: 2,
+            border: '1px solid',
+            borderColor: 'grey.200',
+          }}
+        >
+          <BarChartIcon sx={{ mr: 2, fontSize: 30, color: 'info.main' }} />
+          <Typography variant="h5" component="h2" fontWeight="bold" color="info.main">
+            Incident Heatmap
+          </Typography>
+        </Box>
         <Grid container spacing={3} sx={{ mt: 2 }}>
           <Grid item xs={12}>
-            <IncidentHeatmap />
+            <Card
+              sx={{
+                boxShadow: 3,
+                borderRadius: 3,
+                transition: 'all 0.3s ease',
+                '&:hover': { boxShadow: 6 },
+              }}
+            >
+              <CardContent>
+                <IncidentHeatmap />
+              </CardContent>
+            </Card>
           </Grid>
         </Grid>
 
-        {/* Status Alerts */}
+        {/* Status Overview */}
         {stats?.statusDistribution && (
-          <Grid container spacing={3} sx={{ mt: 2 }}>
-            <Grid item xs={12}>
-              <Paper sx={{ p: 2 }}>
-                <Typography variant="h6" gutterBottom>
-                  Status Overview
-                </Typography>
-                <Box display="flex" flexWrap="wrap" gap={1}>
-                  {Object.entries(stats.statusDistribution).map(([status, count]) => (
-                    <Chip
-                      key={status}
-                      label={`${status.replace('_', ' ').toUpperCase()}: ${count}`}
-                      color={getStatusColor(status)}
-                      variant="outlined"
-                    />
-                  ))}
-                </Box>
-              </Paper>
+          <>
+            <Box
+              display="flex"
+              alignItems="center"
+              mb={2}
+              sx={{
+                mt: 4,
+                p: 2,
+                backgroundColor: 'grey.50',
+                borderRadius: 2,
+                border: '1px solid',
+                borderColor: 'grey.200',
+              }}
+            >
+              <WarningIcon sx={{ mr: 2, fontSize: 30, color: 'warning.main' }} />
+              <Typography variant="h5" component="h2" fontWeight="bold" color="warning.main">
+                Status Overview
+              </Typography>
+            </Box>
+            <Grid container spacing={3} sx={{ mt: 2 }}>
+              <Grid item xs={12}>
+                <Card
+                  sx={{
+                    boxShadow: 3,
+                    borderRadius: 3,
+                    transition: 'all 0.3s ease',
+                    '&:hover': { boxShadow: 6 },
+                  }}
+                >
+                  <CardContent>
+                    <Box display="flex" flexWrap="wrap" gap={1}>
+                      {Object.entries(stats.statusDistribution).map(([status, count]) => (
+                        <Chip
+                          key={status}
+                          label={`${status.replace('_', ' ').toUpperCase()}: ${count}`}
+                          color={getStatusColor(status)}
+                          variant="outlined"
+                          sx={{
+                            fontWeight: 'bold',
+                            fontSize: '0.9rem',
+                            transition: 'all 0.2s ease',
+                            '&:hover': { transform: 'scale(1.05)' },
+                          }}
+                        />
+                      ))}
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
             </Grid>
-          </Grid>
+          </>
         )}
 
         {/* Message Dialog (placeholder) */}
@@ -475,45 +708,90 @@ const ManagerDashboard = ({ user, onLogout }) => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              zIndex: 1000
+              zIndex: 1000,
+              backdropFilter: 'blur(4px)',
             }}
             onClick={() => setMessageDialog(false)}
           >
-            <Paper
-              sx={{ p: 3, maxWidth: 400, width: '90%' }}
+            <Card
+              sx={{
+                p: 4,
+                maxWidth: 450,
+                width: '90%',
+                borderRadius: 3,
+                boxShadow: 6,
+                transform: 'scale(1)',
+                transition: 'all 0.3s ease',
+              }}
               onClick={(e) => e.stopPropagation()}
             >
-              <Typography variant="h6" gutterBottom>
-                Send Message
-              </Typography>
-              <Typography variant="body2" sx={{ mb: 2 }}>
+              <Box display="flex" alignItems="center" mb={3}>
+                <MessageIcon sx={{ mr: 2, fontSize: 32, color: 'secondary.main' }} />
+                <Typography variant="h5" fontWeight="bold" color="secondary.main">
+                  Send Message
+                </Typography>
+              </Box>
+              <Typography variant="body1" sx={{ mb: 3, color: 'text.secondary' }}>
                 Choose who you want to send a message to:
               </Typography>
-              <Box display="flex" gap={1} justifyContent="center">
+              <Box display="flex" gap={2} justifyContent="center" mb={3}>
                 <Button
                   variant="contained"
+                  color="primary"
                   onClick={() => handleSendMessage('admins')}
+                  sx={{
+                    px: 3,
+                    py: 1.5,
+                    borderRadius: 2,
+                    fontWeight: 'bold',
+                    transition: 'all 0.2s ease',
+                    '&:hover': {
+                      transform: 'translateY(-2px)',
+                      boxShadow: 4,
+                    },
+                  }}
                 >
                   Send to Admins
                 </Button>
                 <Button
                   variant="contained"
+                  color="success"
                   onClick={() => handleSendMessage('team_leaders')}
+                  sx={{
+                    px: 3,
+                    py: 1.5,
+                    borderRadius: 2,
+                    fontWeight: 'bold',
+                    transition: 'all 0.2s ease',
+                    '&:hover': {
+                      transform: 'translateY(-2px)',
+                      boxShadow: 4,
+                    },
+                  }}
                 >
                   Send to Team Leaders
                 </Button>
               </Box>
               <Button
                 fullWidth
-                sx={{ mt: 2 }}
+                variant="outlined"
+                sx={{
+                  py: 1.5,
+                  borderRadius: 2,
+                  fontWeight: 'bold',
+                  transition: 'all 0.2s ease',
+                  '&:hover': {
+                    backgroundColor: 'grey.100',
+                    transform: 'translateY(-1px)',
+                  },
+                }}
                 onClick={() => setMessageDialog(false)}
               >
                 Cancel
               </Button>
-            </Paper>
+            </Card>
           </Box>
         )}
-      </Box>
     </Layout>
   );
 };

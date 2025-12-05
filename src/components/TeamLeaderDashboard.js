@@ -36,7 +36,9 @@ import {
   Speed as SpeedIcon,
   Timer as TimerIcon,
   Warning as WarningIcon,
-  CheckCircleOutline as CheckCircleOutlineIcon
+  CheckCircleOutline as CheckCircleOutlineIcon,
+  Dashboard as DashboardIcon,
+  Assessment as AssessmentIcon
 } from '@mui/icons-material';
 import Layout from './Layout';
 import api from '../utils/api';
@@ -197,19 +199,52 @@ const TeamLeaderDashboard = ({ user, onLogout }) => {
           </Alert>
         )}
         
-        <Typography variant="h4" component="h1" gutterBottom>
-          Team Leader Dashboard
+        <Box
+          display="flex"
+          alignItems="center"
+          mb={4}
+          sx={{
+            p: 2,
+            backgroundColor: 'grey.50',
+            borderRadius: 2,
+            border: '1px solid',
+            borderColor: 'grey.200',
+          }}
+        >
+          <DashboardIcon sx={{ mr: 2, fontSize: 40, color: 'secondary.main' }} />
+          <Typography variant="h4" component="h1" fontWeight="bold" color="secondary.main">
+            Team Leader Dashboard
+          </Typography>
+        </Box>
+        <Typography variant="h6" color="text.secondary" mb={3}>
+          Welcome, {user?.name || 'User'}
         </Typography>
-        <Typography>Welcome, {user?.name || 'User'}</Typography>
 
         {/* Team Status Card */}
         {teamStatus && (
-          <Card sx={{ mt: 3, mb: 3 }}>
+          <Card
+            sx={{
+              mt: 3,
+              mb: 3,
+              boxShadow: 3,
+              borderRadius: 3,
+              border: '1px solid',
+              borderColor: 'grey.200',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-2px)',
+              },
+            }}
+          >
             <CardContent>
-              <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-                <Typography variant="h6" component="h2">
+              <Box display="flex" alignItems="center" mb={3}>
+                <GroupIcon sx={{ mr: 2, fontSize: 30, color: 'primary.main' }} />
+                <Typography variant="h6" component="h2" fontWeight="bold" color="primary.main">
                   Team Status & Availability
                 </Typography>
+              </Box>
+              <Box display="flex" justifyContent="flex-end" mb={2}>
                 <Box>
                   <Button
                     variant="outlined"
@@ -309,15 +344,27 @@ const TeamLeaderDashboard = ({ user, onLogout }) => {
         {/* Stats Cards */}
         <Grid container spacing={3} sx={{ mb: 4 }}>
           <Grid item xs={12} sm={6} md={3}>
-            <Card>
+            <Card
+              sx={{
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                color: 'white',
+                boxShadow: 3,
+                borderRadius: 3,
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  boxShadow: 6,
+                  transform: 'translateY(-4px)',
+                },
+              }}
+            >
               <CardContent>
                 <Box display="flex" alignItems="center">
-                  <AssignmentIcon color="primary" sx={{ mr: 2, fontSize: 40 }} />
+                  <AssignmentIcon sx={{ mr: 2, fontSize: 50, color: 'white' }} />
                   <Box>
-                    <Typography color="textSecondary" gutterBottom>
+                    <Typography variant="h6" sx={{ opacity: 0.9 }}>
                       Total Jobs
                     </Typography>
-                    <Typography variant="h4">
+                    <Typography variant="h3" fontWeight="bold">
                       {stats.total}
                     </Typography>
                   </Box>
@@ -327,15 +374,27 @@ const TeamLeaderDashboard = ({ user, onLogout }) => {
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <Card>
+            <Card
+              sx={{
+                background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                color: 'white',
+                boxShadow: 3,
+                borderRadius: 3,
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  boxShadow: 6,
+                  transform: 'translateY(-4px)',
+                },
+              }}
+            >
               <CardContent>
                 <Box display="flex" alignItems="center">
-                  <CheckCircleIcon color="success" sx={{ mr: 2, fontSize: 40 }} />
+                  <CheckCircleIcon sx={{ mr: 2, fontSize: 50, color: 'white' }} />
                   <Box>
-                    <Typography color="textSecondary" gutterBottom>
+                    <Typography variant="h6" sx={{ opacity: 0.9 }}>
                       Completed
                     </Typography>
-                    <Typography variant="h4">
+                    <Typography variant="h3" fontWeight="bold">
                       {stats.completed}
                     </Typography>
                   </Box>
@@ -345,15 +404,27 @@ const TeamLeaderDashboard = ({ user, onLogout }) => {
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <Card>
+            <Card
+              sx={{
+                background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                color: 'white',
+                boxShadow: 3,
+                borderRadius: 3,
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  boxShadow: 6,
+                  transform: 'translateY(-4px)',
+                },
+              }}
+            >
               <CardContent>
                 <Box display="flex" alignItems="center">
-                  <ScheduleIcon color="info" sx={{ mr: 2, fontSize: 40 }} />
+                  <ScheduleIcon sx={{ mr: 2, fontSize: 50, color: 'white' }} />
                   <Box>
-                    <Typography color="textSecondary" gutterBottom>
+                    <Typography variant="h6" sx={{ opacity: 0.9 }}>
                       In Progress
                     </Typography>
-                    <Typography variant="h4">
+                    <Typography variant="h3" fontWeight="bold">
                       {stats.inProgress}
                     </Typography>
                   </Box>
@@ -363,15 +434,27 @@ const TeamLeaderDashboard = ({ user, onLogout }) => {
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <Card>
+            <Card
+              sx={{
+                background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                color: 'white',
+                boxShadow: 3,
+                borderRadius: 3,
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  boxShadow: 6,
+                  transform: 'translateY(-4px)',
+                },
+              }}
+            >
               <CardContent>
                 <Box display="flex" alignItems="center">
-                  <WorkIcon color="warning" sx={{ mr: 2, fontSize: 40 }} />
+                  <WorkIcon sx={{ mr: 2, fontSize: 50, color: 'white' }} />
                   <Box>
-                    <Typography color="textSecondary" gutterBottom>
+                    <Typography variant="h6" sx={{ opacity: 0.9 }}>
                       Pending
                     </Typography>
-                    <Typography variant="h4">
+                    <Typography variant="h3" fontWeight="bold">
                       {stats.pending}
                     </Typography>
                   </Box>
@@ -383,11 +466,27 @@ const TeamLeaderDashboard = ({ user, onLogout }) => {
 
         {/* Workload Analytics */}
         {workload && (
-          <Card sx={{ mb: 3 }}>
+          <Card
+            sx={{
+              mb: 3,
+              boxShadow: 3,
+              borderRadius: 3,
+              border: '1px solid',
+              borderColor: 'grey.200',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-2px)',
+              },
+            }}
+          >
             <CardContent>
-              <Typography variant="h6" component="h2" gutterBottom>
-                Team Workload Analytics
-              </Typography>
+              <Box display="flex" alignItems="center" mb={3}>
+                <AssessmentIcon sx={{ mr: 2, fontSize: 30, color: 'info.main' }} />
+                <Typography variant="h6" component="h2" fontWeight="bold" color="info.main">
+                  Team Workload Analytics
+                </Typography>
+              </Box>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={4}>
                   <Typography color="textSecondary" gutterBottom>
@@ -419,22 +518,38 @@ const TeamLeaderDashboard = ({ user, onLogout }) => {
         )}
 
         {/* Recent Jobs Table */}
-        <Typography variant="h5" component="h2" gutterBottom sx={{ mt: 4 }}>
-          Recent Jobs
-        </Typography>
-        <TableContainer component={Paper}>
+        <Box display="flex" alignItems="center" mb={2} sx={{ mt: 4 }}>
+          <WorkIcon sx={{ mr: 2, fontSize: 30, color: 'warning.main' }} />
+          <Typography variant="h5" component="h2" fontWeight="bold" color="warning.main">
+            Recent Jobs
+          </Typography>
+        </Box>
+        <TableContainer
+          component={Paper}
+          sx={{
+            boxShadow: 3,
+            borderRadius: 3,
+            overflow: 'hidden',
+          }}
+        >
           <Table>
-            <TableHead>
+            <TableHead sx={{ backgroundColor: 'warning.main' }}>
               <TableRow>
-                <TableCell>Incident</TableCell>
-                <TableCell>Description</TableCell>
-                <TableCell>Status</TableCell>
-                <TableCell>Created</TableCell>
+                <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Incident</TableCell>
+                <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Description</TableCell>
+                <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Status</TableCell>
+                <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Created</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {jobs.slice(0, 5).map((job) => (
-                <TableRow key={job.id}>
+              {jobs.slice(0, 5).map((job, index) => (
+                <TableRow
+                  key={job.id}
+                  sx={{
+                    '&:nth-of-type(odd)': { backgroundColor: 'action.hover' },
+                    '&:hover': { backgroundColor: 'action.selected' },
+                  }}
+                >
                   <TableCell>{job.Incident?.title || 'N/A'}</TableCell>
                   <TableCell>{job.description}</TableCell>
                   <TableCell>
@@ -442,6 +557,7 @@ const TeamLeaderDashboard = ({ user, onLogout }) => {
                       label={job.status.replace('_', ' ')}
                       color={getStatusColor(job.status)}
                       size="small"
+                      variant="outlined"
                     />
                   </TableCell>
                   <TableCell>{new Date(job.created_at).toLocaleDateString()}</TableCell>

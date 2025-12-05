@@ -16,6 +16,7 @@ import {
   Card,
   CardContent,
 } from '@mui/material';
+import { keyframes } from '@mui/material/styles';
 import {
   ReportProblem as ReportIcon,
   Timeline as ProgressIcon,
@@ -28,11 +29,26 @@ import {
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import Footer from './Footer';
+import Background from '../Background.png';
+import Logo from '../amanziguard.png';
 
 const Home = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
+
+  // Define wave animation keyframes
+  const wave = keyframes`
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  `;
 
   const handleLogin = () => {
     navigate('/login');
@@ -96,21 +112,30 @@ const Home = () => {
   ];
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundImage: `url(${Background})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
       {/* Header */}
-      <AppBar position="static" color="primary" elevation={2}>
+      <AppBar position="fixed" color="primary" elevation={2}>
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Sewage Incident Management
-          </Typography>
+          <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
+            <img src={Logo} alt="Logo" style={{ height: '40px', marginRight: '10px' }} />
+            <Typography variant="h6" component="div">
+              AmanziGuard
+            </Typography>
+          </Box>
           <Button
-            color="inherit"
+            variant="contained"
+            color="secondary"
             startIcon={<LoginIcon />}
             onClick={handleLogin}
             sx={{
+              fontWeight: 'bold',
+              borderRadius: 2,
+              boxShadow: 2,
               '&:hover': {
-                backgroundColor: 'rgba(255, 255, 255, 0.1)'
-              }
+                boxShadow: 4,
+                transform: 'translateY(-1px)',
+              },
+              transition: 'all 0.3s ease',
             }}
           >
             Login
@@ -119,11 +144,22 @@ const Home = () => {
       </AppBar>
 
       {/* Main Content */}
-      <Container maxWidth="lg" sx={{ flexGrow: 1, py: 4 }}>
+      <Container maxWidth="lg" sx={{ flexGrow: 1, py: 4, pt: '80px' }}>
         {/* Hero Section */}
-        <Box textAlign="center" mb={6}>
-          <Typography variant="h2" component="h1" gutterBottom color="primary" sx={{ fontWeight: 'bold' }}>
-            Welcome to Sewage Incident Management
+        <Box
+          textAlign="center"
+          mb={6}
+          sx={{
+            border: `2px solid ${theme.palette.primary.main}`,
+            borderRadius: 4,
+            p: 4,
+            backgroundColor: 'rgba(78, 205, 196, 0.2)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
+          }}
+        >
+          <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 'bold', background: 'linear-gradient(135deg, #2196F3 0%, #1976D2 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+            Welcome to AmanziGuard
           </Typography>
           <Typography variant="h5" component="p" color="text.secondary" sx={{ mb: 4, maxWidth: 600, mx: 'auto' }}>
             Easily report, track, and escalate incidents for quick resolution. Our system ensures efficient handling of sewage-related issues in your community.
@@ -144,9 +180,12 @@ const Home = () => {
                   flexDirection: 'column',
                   justifyContent: 'center',
                   transition: 'transform 0.2s, box-shadow 0.2s',
+                  borderRadius: 4,
+                  backgroundColor: '#e0f7f6',
+                  animation: `${wave} 3s ease-in-out infinite`,
                   '&:hover': {
-                    transform: 'translateY(-4px)',
-                    boxShadow: theme.shadows[8],
+                    transform: 'scale(1.05)',
+                    boxShadow: 6,
                   },
                   cursor: 'pointer'
                 }}
@@ -160,7 +199,7 @@ const Home = () => {
                     }}
                   />
                 </Box>
-                <Typography variant="h6" component="h3" gutterBottom color="text.primary">
+                <Typography variant="h6" component="h3" gutterBottom color="text.primary" sx={{ animation: `${wave} 3s ease-in-out infinite` }}>
                   {button.title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
@@ -173,13 +212,13 @@ const Home = () => {
 
         {/* Features Section */}
         <Box mb={8}>
-          <Typography variant="h3" component="h2" textAlign="center" gutterBottom color="primary">
+          <Typography variant="h3" component="h2" textAlign="center" gutterBottom sx={{ background: 'linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
             Key Features
           </Typography>
           <Grid container spacing={3} justifyContent="center">
             {features.map((feature, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
-                <Card sx={{ height: '100%', textAlign: 'center' }}>
+                <Card sx={{ height: '100%', textAlign: 'center', backgroundColor: '#e0f7f6', borderRadius: 4 }}>
                   <CardContent>
                     <Box sx={{ mb: 2 }}>
                       <feature.icon
@@ -204,11 +243,11 @@ const Home = () => {
 
         {/* FAQ Section */}
         <Box mb={4}>
-          <Typography variant="h3" component="h2" textAlign="center" gutterBottom color="primary">
+          <Typography variant="h3" component="h2" textAlign="center" gutterBottom sx={{ background: 'linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
             Frequently Asked Questions
           </Typography>
           {faqs.map((faq, index) => (
-            <Accordion key={index} sx={{ mb: 1 }}>
+            <Accordion key={index} sx={{ mb: 1, backgroundColor: '#e0f7f6', borderRadius: 4 }}>
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography variant="h6">{faq.question}</Typography>
               </AccordionSummary>

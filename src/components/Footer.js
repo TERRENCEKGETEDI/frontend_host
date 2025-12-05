@@ -20,7 +20,7 @@ const Footer = () => {
         py: 3,
         px: 2,
         mt: 'auto',
-        backgroundColor: theme.palette.grey[100],
+        backgroundColor: '#e0f7f6',
         borderTop: `1px solid ${theme.palette.grey[300]}`,
       }}
     >
@@ -28,7 +28,7 @@ const Footer = () => {
         <Grid container spacing={4}>
           <Grid size={{ xs: 12, sm: 4 }}>
             <Typography variant="h6" color="text.primary" gutterBottom>
-              Sewage Incident Management
+              AmanziGuard
             </Typography>
             <Typography variant="body2" color="text.secondary">
               Efficiently managing sewage incidents and maintenance for our community.
@@ -65,7 +65,7 @@ const Footer = () => {
         </Grid>
         <Divider sx={{ my: 3 }} />
         <Typography variant="body2" color="text.secondary" align="center">
-          © {currentYear} Sewage Incident Management System. All rights reserved.
+          © {currentYear} AmanziGuard. All rights reserved.
         </Typography>
       </Container>
     </Box>

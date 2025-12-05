@@ -46,8 +46,8 @@ const Login = ({ onLogin }) => {
 
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" bgcolor="#f5f5f5">
-      <Paper elevation={3} sx={{ p: 4, width: '100%', maxWidth: 400 }}>
+    <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" bgcolor="#e0f7f6">
+      <Paper elevation={3} sx={{ p: 4, width: '100%', maxWidth: 400, borderRadius: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom align="center" color="primary">
           Incident Management Login
         </Typography>
@@ -62,6 +62,20 @@ const Login = ({ onLogin }) => {
             required
             margin="normal"
             variant="outlined"
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                borderRadius: 2,
+                '& fieldset': {
+                  borderColor: 'primary.main',
+                },
+                '&:hover fieldset': {
+                  borderColor: 'primary.dark',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'primary.main',
+                },
+              },
+            }}
           />
           <TextField
             fullWidth
@@ -72,6 +86,20 @@ const Login = ({ onLogin }) => {
             required
             margin="normal"
             variant="outlined"
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                borderRadius: 2,
+                '& fieldset': {
+                  borderColor: 'primary.main',
+                },
+                '&:hover fieldset': {
+                  borderColor: 'primary.dark',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'primary.main',
+                },
+              },
+            }}
           />
           <FormControlLabel
             control={<Checkbox checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />}
@@ -82,15 +110,28 @@ const Login = ({ onLogin }) => {
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
-            sx={{ mt: 3, mb: 2 }}
+            color="secondary"
+            sx={{
+              mt: 3,
+              mb: 2,
+              py: 1.5,
+              fontSize: '1.1rem',
+              fontWeight: 'bold',
+              borderRadius: 2,
+              boxShadow: 3,
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-2px)',
+              },
+              transition: 'all 0.3s ease',
+            }}
             disabled={loading}
           >
             {loading ? 'Logging in...' : 'Login'}
           </Button>
         </Box>
         <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-          Forgot password? <Button size="small">Reset</Button>
+          Forgot password? <Button size="small" variant="outlined" color="secondary" sx={{ borderRadius: 2, fontWeight: 'bold' }}>Reset</Button>
         </Typography>
       </Paper>
     </Box>

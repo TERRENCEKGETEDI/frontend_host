@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// Use Render backend
+// Use hosted backend
 const api = axios.create({
   baseURL: 'https://backend-host-w8to.onrender.com/api',
 });

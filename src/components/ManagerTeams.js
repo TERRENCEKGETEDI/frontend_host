@@ -25,7 +25,7 @@ import {
   CircularProgress,
   Paper
 } from '@mui/material';
-import { Add as AddIcon, Delete as DeleteIcon, Group as GroupIcon } from '@mui/icons-material';
+import { Add as AddIcon, Delete as DeleteIcon, Group as GroupIcon, People as PeopleIcon } from '@mui/icons-material';
 import Layout from './Layout';
 import api from '../utils/api';
 
@@ -143,14 +143,41 @@ const ManagerTeams = ({ user, onLogout }) => {
   return (
     <Layout user={user} onLogout={onLogout}>
       <Box sx={{ p: 3 }}>
-        <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
-          <Typography variant="h4" component="h1">
+        <Box
+          display="flex"
+          alignItems="center"
+          mb={3}
+          sx={{
+            mt: 5,
+            p: 2,
+            backgroundColor: 'grey.50',
+            borderRadius: 2,
+            border: '1px solid',
+            borderColor: 'grey.200',
+          }}
+        >
+          <PeopleIcon sx={{ mr: 2, fontSize: 32, color: 'primary.main' }} />
+          <Typography variant="h5" component="h1" fontWeight="bold" color="primary.main">
             Team Management
           </Typography>
+        </Box>
+
+        <Box display="flex" justifyContent="flex-end" mb={3}>
           <Button
             variant="contained"
             startIcon={<AddIcon />}
             onClick={handleCreateTeamDialog}
+            sx={{
+              py: 1.5,
+              px: 3,
+              borderRadius: 2,
+              fontWeight: 'bold',
+              transition: 'all 0.2s ease',
+              '&:hover': {
+                transform: 'translateY(-2px)',
+                boxShadow: 4,
+              },
+            }}
           >
             Create New Team
           </Button>
@@ -171,25 +198,43 @@ const ManagerTeams = ({ user, onLogout }) => {
         <Grid container spacing={3}>
           {teams.map((team) => (
             <Grid item xs={12} md={6} lg={4} key={team.id}>
-              <Card>
+              <Card
+                sx={{
+                  boxShadow: 3,
+                  borderRadius: 3,
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    boxShadow: 6,
+                    transform: 'translateY(-4px)',
+                  },
+                }}
+              >
                 <CardContent>
                   <Box display="flex" alignItems="center" mb={2}>
-                    <GroupIcon color="primary" sx={{ mr: 1 }} />
-                    <Typography variant="h6">{team.name}</Typography>
+                    <GroupIcon color="primary" sx={{ mr: 1, fontSize: 28 }} />
+                    <Typography variant="h6" fontWeight="bold">{team.name}</Typography>
                   </Box>
-                  
+
                   <Typography variant="body2" color="text.secondary" mb={2}>
                     Members: {team.TeamMembers?.length || 0}
                   </Typography>
 
                   {team.TeamMembers && team.TeamMembers.length > 0 ? (
-                    <Paper variant="outlined" sx={{ p: 2, mb: 2 }}>
-                      <Typography variant="subtitle2" gutterBottom>
+                    <Paper
+                      variant="outlined"
+                      sx={{
+                        p: 2,
+                        mb: 2,
+                        borderRadius: 2,
+                        backgroundColor: 'grey.50',
+                      }}
+                    >
+                      <Typography variant="subtitle2" gutterBottom fontWeight="bold">
                         Team Members:
                       </Typography>
                       <List dense>
                         {team.TeamMembers.map((member) => (
-                          <ListItem key={member.id}>
+                          <ListItem key={member.id} sx={{ px: 0 }}>
                             <ListItemText
                               primary={member.User?.name}
                               secondary={member.User?.email}
@@ -199,6 +244,13 @@ const ManagerTeams = ({ user, onLogout }) => {
                                 edge="end"
                                 onClick={() => handleRemoveMember(team.id, member.id)}
                                 color="error"
+                                sx={{
+                                  transition: 'all 0.2s ease',
+                                  '&:hover': {
+                                    backgroundColor: 'error.light',
+                                    transform: 'scale(1.1)',
+                                  },
+                                }}
                               >
                                 <DeleteIcon />
                               </IconButton>
@@ -208,7 +260,7 @@ const ManagerTeams = ({ user, onLogout }) => {
                       </List>
                     </Paper>
                   ) : (
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2, fontStyle: 'italic' }}>
                       No members in this team
                     </Typography>
                   )}
@@ -218,6 +270,18 @@ const ManagerTeams = ({ user, onLogout }) => {
                     fullWidth
                     onClick={() => handleAddMemberDialog(team)}
                     disabled={availableUsers.length === 0}
+                    sx={{
+                      borderRadius: 2,
+                      fontWeight: 'bold',
+                      transition: 'all 0.2s ease',
+                      '&:hover': {
+                        transform: 'translateY(-1px)',
+                        boxShadow: 2,
+                      },
+                      '&:disabled': {
+                        opacity: 0.6,
+                      },
+                    }}
                   >
                     Add Member
                   </Button>
@@ -228,20 +292,65 @@ const ManagerTeams = ({ user, onLogout }) => {
         </Grid>
 
         {teams.length === 0 && (
-          <Paper sx={{ p: 4, textAlign: 'center' }}>
-            <Typography variant="h6" color="text.secondary">
+          <Card
+            sx={{
+              p: 6,
+              textAlign: 'center',
+              boxShadow: 3,
+              borderRadius: 3,
+              backgroundColor: 'grey.50',
+            }}
+          >
+            <GroupIcon sx={{ fontSize: 64, color: 'grey.400', mb: 2 }} />
+            <Typography variant="h6" color="text.secondary" gutterBottom>
               No teams found
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Create your first team to get started
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+              Create your first team to get started with team management
             </Typography>
-          </Paper>
+            <Button
+              variant="contained"
+              startIcon={<AddIcon />}
+              onClick={handleCreateTeamDialog}
+              sx={{
+                borderRadius: 2,
+                px: 4,
+                py: 1.5,
+                fontWeight: 'bold',
+              }}
+            >
+              Create Your First Team
+            </Button>
+          </Card>
         )}
 
         {/* Create Team Dialog */}
-        <Dialog open={createTeamDialog} onClose={() => setCreateTeamDialog(false)}>
-          <DialogTitle>Create New Team</DialogTitle>
-          <DialogContent>
+        <Dialog
+          open={createTeamDialog}
+          onClose={() => setCreateTeamDialog(false)}
+          maxWidth="sm"
+          fullWidth
+          PaperProps={{
+            sx: {
+              borderRadius: 3,
+              boxShadow: 6,
+            },
+          }}
+        >
+          <DialogTitle
+            sx={{
+              pb: 1,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
+            }}
+          >
+            <AddIcon sx={{ color: 'primary.main' }} />
+            <Typography variant="h6" fontWeight="bold">
+              Create New Team
+            </Typography>
+          </DialogTitle>
+          <DialogContent sx={{ pt: 1 }}>
             <TextField
               autoFocus
               margin="dense"
@@ -251,22 +360,80 @@ const ManagerTeams = ({ user, onLogout }) => {
               variant="outlined"
               value={newTeamName}
               onChange={(e) => setNewTeamName(e.target.value)}
-              sx={{ mt: 1 }}
+              sx={{
+                mt: 1,
+                '& .MuiOutlinedInput-root': {
+                  borderRadius: 2,
+                },
+              }}
             />
           </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setCreateTeamDialog(false)}>Cancel</Button>
-            <Button onClick={handleCreateTeam} variant="contained">
+          <DialogActions sx={{ p: 3, pt: 1 }}>
+            <Button
+              onClick={() => setCreateTeamDialog(false)}
+              sx={{
+                borderRadius: 2,
+                px: 3,
+                fontWeight: 'bold',
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleCreateTeam}
+              variant="contained"
+              sx={{
+                borderRadius: 2,
+                px: 3,
+                fontWeight: 'bold',
+                transition: 'all 0.2s ease',
+                '&:hover': {
+                  transform: 'translateY(-1px)',
+                  boxShadow: 4,
+                },
+              }}
+            >
               Create Team
             </Button>
           </DialogActions>
         </Dialog>
 
         {/* Add Member Dialog */}
-        <Dialog open={addMemberDialog} onClose={() => setAddMemberDialog(false)}>
-          <DialogTitle>Add Member to {selectedTeam?.name}</DialogTitle>
-          <DialogContent>
-            <FormControl fullWidth sx={{ mt: 1 }}>
+        <Dialog
+          open={addMemberDialog}
+          onClose={() => setAddMemberDialog(false)}
+          maxWidth="sm"
+          fullWidth
+          PaperProps={{
+            sx: {
+              borderRadius: 3,
+              boxShadow: 6,
+            },
+          }}
+        >
+          <DialogTitle
+            sx={{
+              pb: 1,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
+            }}
+          >
+            <GroupIcon sx={{ color: 'success.main' }} />
+            <Typography variant="h6" fontWeight="bold">
+              Add Member to {selectedTeam?.name}
+            </Typography>
+          </DialogTitle>
+          <DialogContent sx={{ pt: 1 }}>
+            <FormControl
+              fullWidth
+              sx={{
+                mt: 1,
+                '& .MuiOutlinedInput-root': {
+                  borderRadius: 2,
+                },
+              }}
+            >
               <InputLabel>Select User</InputLabel>
               <Select
                 value={selectedUser}
@@ -286,9 +453,32 @@ const ManagerTeams = ({ user, onLogout }) => {
               </Select>
             </FormControl>
           </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setAddMemberDialog(false)}>Cancel</Button>
-            <Button onClick={handleAddMember} variant="contained">
+          <DialogActions sx={{ p: 3, pt: 1 }}>
+            <Button
+              onClick={() => setAddMemberDialog(false)}
+              sx={{
+                borderRadius: 2,
+                px: 3,
+                fontWeight: 'bold',
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleAddMember}
+              variant="contained"
+              color="success"
+              sx={{
+                borderRadius: 2,
+                px: 3,
+                fontWeight: 'bold',
+                transition: 'all 0.2s ease',
+                '&:hover': {
+                  transform: 'translateY(-1px)',
+                  boxShadow: 4,
+                },
+              }}
+            >
               Add Member
             </Button>
           </DialogActions>

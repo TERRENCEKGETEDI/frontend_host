@@ -127,7 +127,7 @@ const Header = ({ user, onLogout }) => {
 
   return (
     <>
-      <AppBar position="static" color="primary">
+      <AppBar position="fixed" color="primary">
         <Toolbar>
           {isMobile && (
             <IconButton
@@ -142,7 +142,7 @@ const Header = ({ user, onLogout }) => {
             </IconButton>
           )}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Sewage Incident Management
+            AmanziGuard
           </Typography>
 
           <Box sx={{ display: 'flex', alignItems: 'center' }}>

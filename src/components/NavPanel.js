@@ -51,19 +51,58 @@ const NavPanel = ({ role }) => {
 
       <List sx={{ flexGrow: 1 }}>
         {links[role]?.map(link => (
-          <ListItem key={link.to} component={Link} to={link.to}>
-            <ListItemText primary={link.label} />
+          <ListItem
+            key={link.to}
+            component={Link}
+            to={link.to}
+            sx={{
+              mx: 1,
+              my: 0.5,
+              borderRadius: 2,
+              backgroundColor: 'primary.main',
+              color: 'primary.contrastText',
+              boxShadow: '0 4px 8px rgba(0,0,0,0.3)',
+              '&:hover': {
+                backgroundColor: 'primary.dark',
+                transform: 'scale(1.05) translateY(-2px)',
+                boxShadow: '0 6px 12px rgba(0,0,0,0.4)',
+              },
+              transition: 'all 0.2s ease',
+              textAlign: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <ListItemText primary={link.label} sx={{ color: 'inherit' }} />
           </ListItem>
         ))}
       </List>
 
       <Divider />
       <List>
-        <ListItem component={Link} to="/profile">
-          <ListItemIcon>
+        <ListItem
+          component={Link}
+          to="/profile"
+          sx={{
+            mx: 1,
+            my: 0.5,
+            borderRadius: 2,
+            backgroundColor: 'secondary.main',
+            color: 'secondary.contrastText',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.3)',
+            '&:hover': {
+              backgroundColor: 'secondary.dark',
+              transform: 'scale(1.05) translateY(-2px)',
+              boxShadow: '0 6px 12px rgba(0,0,0,0.4)',
+            },
+            transition: 'all 0.2s ease',
+            textAlign: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <ListItemIcon sx={{ color: 'inherit' }}>
             <Person />
           </ListItemIcon>
-          <ListItemText primary="Profile" />
+          <ListItemText primary="Profile" sx={{ color: 'inherit' }} />
         </ListItem>
       </List>
     </Box>

@@ -32,7 +32,7 @@ const Layout = ({ user, onLogout, children }) => {
             p: 3,
             width: { md: `calc(100% - 250px)` },
             ml: { md: '250px' },
-            mt: '64px', // Account for AppBar height
+            mt: '64px', // Account for fixed AppBar height
           }}
         >
           <Container maxWidth="lg">

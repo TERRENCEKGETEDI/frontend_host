@@ -13,7 +13,9 @@ import {
   CheckCircle as CheckCircleIcon,
   Schedule as ScheduleIcon,
   Assignment as AssignmentIcon,
-  AttachMoney as MoneyIcon
+  AttachMoney as MoneyIcon,
+  Dashboard as DashboardIcon,
+  WorkHistory as WorkHistoryIcon
 } from '@mui/icons-material';
 import Layout from './Layout';
 import api from '../utils/api';
@@ -82,25 +84,53 @@ const WorkerDashboard = ({ user, onLogout }) => {
         </Alert>
       )}
 
-      <Typography variant="h4" component="h1" gutterBottom>
-        Worker Dashboard
-      </Typography>
-      <Typography variant="h6" color="textSecondary" gutterBottom>
-        Welcome back, {user.name}
-      </Typography>
+      <Box
+        display="flex"
+        alignItems="center"
+        mb={4}
+        sx={{
+          p: 2,
+          backgroundColor: 'grey.50',
+          borderRadius: 2,
+          border: '1px solid',
+          borderColor: 'grey.200',
+        }}
+      >
+        <DashboardIcon sx={{ mr: 2, fontSize: 40, color: 'primary.main' }} />
+        <Box>
+          <Typography variant="h3" component="h1" fontWeight="bold" color="primary.main">
+            Worker Dashboard
+          </Typography>
+          <Typography variant="h6" color="textSecondary">
+            Welcome back, {user.name}
+          </Typography>
+        </Box>
+      </Box>
 
       {/* Stats Cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
+          <Card
+            sx={{
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              color: 'white',
+              boxShadow: 3,
+              borderRadius: 3,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-4px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center">
-                <AssignmentIcon color="primary" sx={{ mr: 2, fontSize: 40 }} />
+                <AssignmentIcon sx={{ mr: 2, fontSize: 50, color: 'white' }} />
                 <Box>
-                  <Typography color="textSecondary" gutterBottom>
+                  <Typography variant="h6" sx={{ opacity: 0.9 }}>
                     Total Jobs
                   </Typography>
-                  <Typography variant="h4">
+                  <Typography variant="h3" fontWeight="bold">
                     {stats.total}
                   </Typography>
                 </Box>
@@ -110,15 +140,27 @@ const WorkerDashboard = ({ user, onLogout }) => {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
+          <Card
+            sx={{
+              background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+              color: 'white',
+              boxShadow: 3,
+              borderRadius: 3,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-4px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center">
-                <ScheduleIcon color="warning" sx={{ mr: 2, fontSize: 40 }} />
+                <ScheduleIcon sx={{ mr: 2, fontSize: 50, color: 'white' }} />
                 <Box>
-                  <Typography color="textSecondary" gutterBottom>
+                  <Typography variant="h6" sx={{ opacity: 0.9 }}>
                     Pending
                   </Typography>
-                  <Typography variant="h4">
+                  <Typography variant="h3" fontWeight="bold">
                     {stats.pending}
                   </Typography>
                 </Box>
@@ -128,15 +170,27 @@ const WorkerDashboard = ({ user, onLogout }) => {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
+          <Card
+            sx={{
+              background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+              color: 'white',
+              boxShadow: 3,
+              borderRadius: 3,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-4px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center">
-                <WorkIcon color="info" sx={{ mr: 2, fontSize: 40 }} />
+                <WorkIcon sx={{ mr: 2, fontSize: 50, color: 'white' }} />
                 <Box>
-                  <Typography color="textSecondary" gutterBottom>
+                  <Typography variant="h6" sx={{ opacity: 0.9 }}>
                     In Progress
                   </Typography>
-                  <Typography variant="h4">
+                  <Typography variant="h3" fontWeight="bold">
                     {stats.working}
                   </Typography>
                 </Box>
@@ -146,15 +200,27 @@ const WorkerDashboard = ({ user, onLogout }) => {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
+          <Card
+            sx={{
+              background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+              color: 'white',
+              boxShadow: 3,
+              borderRadius: 3,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-4px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center">
-                <CheckCircleIcon color="success" sx={{ mr: 2, fontSize: 40 }} />
+                <CheckCircleIcon sx={{ mr: 2, fontSize: 50, color: 'white' }} />
                 <Box>
-                  <Typography color="textSecondary" gutterBottom>
+                  <Typography variant="h6" sx={{ opacity: 0.9 }}>
                     Completed
                   </Typography>
-                  <Typography variant="h4">
+                  <Typography variant="h3" fontWeight="bold">
                     {stats.done}
                   </Typography>
                 </Box>
@@ -164,15 +230,27 @@ const WorkerDashboard = ({ user, onLogout }) => {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
+          <Card
+            sx={{
+              background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+              color: 'white',
+              boxShadow: 3,
+              borderRadius: 3,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-4px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center">
-                <MoneyIcon color="success" sx={{ mr: 2, fontSize: 40 }} />
+                <MoneyIcon sx={{ mr: 2, fontSize: 50, color: 'white' }} />
                 <Box>
-                  <Typography color="textSecondary" gutterBottom>
+                  <Typography variant="h6" sx={{ opacity: 0.9 }}>
                     Total Earnings
                   </Typography>
-                  <Typography variant="h4">
+                  <Typography variant="h3" fontWeight="bold">
                     R{totalEarnings}
                   </Typography>
                 </Box>
@@ -183,23 +261,36 @@ const WorkerDashboard = ({ user, onLogout }) => {
       </Grid>
 
       {/* Recent Activity */}
-      <Typography variant="h5" component="h2" gutterBottom>
-        Recent Jobs
-      </Typography>
+      <Box display="flex" alignItems="center" mb={2} sx={{ mt: 4 }}>
+        <WorkHistoryIcon sx={{ mr: 2, fontSize: 30, color: 'secondary.main' }} />
+        <Typography variant="h5" component="h2" fontWeight="bold" color="secondary.main">
+          Recent Jobs
+        </Typography>
+      </Box>
 
       {jobs.length === 0 ? (
         <Typography color="textSecondary">No jobs assigned yet.</Typography>
       ) : (
-        <Grid container spacing={2}>
+        <Grid container spacing={3}>
           {jobs.slice(0, 3).map((job) => (
             <Grid item xs={12} md={4} key={job.id}>
-              <Card>
-                <CardContent>
-                  <Typography variant="h6" gutterBottom>
+              <Card
+                sx={{
+                  boxShadow: 3,
+                  borderRadius: 3,
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    boxShadow: 6,
+                    transform: 'translateY(-4px)',
+                  },
+                }}
+              >
+                <CardContent sx={{ p: 3 }}>
+                  <Typography variant="h6" gutterBottom fontWeight="bold">
                     {job.JobCard?.Incident?.title || 'Unknown Job'}
                   </Typography>
-                  <Typography variant="body2" color="textSecondary" gutterBottom>
-                    Status: {job.status}
+                  <Typography variant="body2" color="textSecondary" gutterBottom sx={{ mb: 2 }}>
+                    Status: <strong>{job.status}</strong>
                   </Typography>
                   <Typography variant="body2" color="textSecondary">
                     Assigned: {new Date(job.created_at || job.assigned_at).toLocaleDateString()}

@@ -20,7 +20,9 @@ import {
   CheckCircle as CheckCircleIcon,
   AttachMoney as MoneyIcon,
   Work as WorkIcon,
-  AccessTime as AccessTimeIcon
+  AccessTime as AccessTimeIcon,
+  Dashboard as DashboardIcon,
+  History as HistoryIcon
 } from '@mui/icons-material';
 import Layout from './Layout';
 import api from '../utils/api';
@@ -95,25 +97,53 @@ const WorkerHistory = ({ user, onLogout }) => {
         </Alert>
       )}
 
-      <Typography variant="h4" component="h1" gutterBottom>
-        Job History
-      </Typography>
-      <Typography variant="h6" color="textSecondary" gutterBottom>
-        Your completed jobs and earnings summary
-      </Typography>
+      <Box
+        display="flex"
+        alignItems="center"
+        mb={4}
+        sx={{
+          p: 2,
+          backgroundColor: 'grey.50',
+          borderRadius: 2,
+          border: '1px solid',
+          borderColor: 'grey.200',
+        }}
+      >
+        <DashboardIcon sx={{ mr: 2, fontSize: 40, color: 'primary.main' }} />
+        <Box>
+          <Typography variant="h3" component="h1" fontWeight="bold" color="primary.main">
+            Job History
+          </Typography>
+          <Typography variant="h6" color="textSecondary">
+            Your completed jobs and earnings summary
+          </Typography>
+        </Box>
+      </Box>
 
       {/* Earnings Summary */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} sm={6} md={4}>
-          <Card>
+          <Card
+            sx={{
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              color: 'white',
+              boxShadow: 3,
+              borderRadius: 3,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-4px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center">
-                <WorkIcon color="primary" sx={{ mr: 2, fontSize: 40 }} />
+                <WorkIcon sx={{ mr: 2, fontSize: 50, color: 'white' }} />
                 <Box>
-                  <Typography color="textSecondary" gutterBottom>
+                  <Typography variant="h6" sx={{ opacity: 0.9 }}>
                     Total Jobs Completed
                   </Typography>
-                  <Typography variant="h4">
+                  <Typography variant="h3" fontWeight="bold">
                     {history.length}
                   </Typography>
                 </Box>
@@ -123,15 +153,27 @@ const WorkerHistory = ({ user, onLogout }) => {
         </Grid>
 
         <Grid item xs={12} sm={6} md={4}>
-          <Card>
+          <Card
+            sx={{
+              background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+              color: 'white',
+              boxShadow: 3,
+              borderRadius: 3,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-4px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center">
-                <MoneyIcon color="success" sx={{ mr: 2, fontSize: 40 }} />
+                <MoneyIcon sx={{ mr: 2, fontSize: 50, color: 'white' }} />
                 <Box>
-                  <Typography color="textSecondary" gutterBottom>
+                  <Typography variant="h6" sx={{ opacity: 0.9 }}>
                     Total Earnings
                   </Typography>
-                  <Typography variant="h4">
+                  <Typography variant="h3" fontWeight="bold">
                     R{totalEarnings}
                   </Typography>
                 </Box>
@@ -141,15 +183,27 @@ const WorkerHistory = ({ user, onLogout }) => {
         </Grid>
 
         <Grid item xs={12} sm={6} md={4}>
-          <Card>
+          <Card
+            sx={{
+              background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+              color: 'white',
+              boxShadow: 3,
+              borderRadius: 3,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-4px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center">
-                <AccessTimeIcon color="info" sx={{ mr: 2, fontSize: 40 }} />
+                <AccessTimeIcon sx={{ mr: 2, fontSize: 50, color: 'white' }} />
                 <Box>
-                  <Typography color="textSecondary" gutterBottom>
+                  <Typography variant="h6" sx={{ opacity: 0.9 }}>
                     Average per Job
                   </Typography>
-                  <Typography variant="h4">
+                  <Typography variant="h3" fontWeight="bold">
                     R{history.length > 0 ? (totalEarnings / history.length).toFixed(2) : '0.00'}
                   </Typography>
                 </Box>

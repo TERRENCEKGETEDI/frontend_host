@@ -190,14 +190,36 @@ const TeamLeaderReports = ({ user, onLogout }) => {
         </Alert>
       )}
 
-      <Typography variant="h4" component="h1" gutterBottom>
-        Reports & Analytics
-      </Typography>
+      <Box
+        display="flex"
+        alignItems="center"
+        mb={4}
+        sx={{
+          p: 2,
+          backgroundColor: 'grey.50',
+          borderRadius: 2,
+          border: '1px solid',
+          borderColor: 'grey.200',
+        }}
+      >
+        <AssessmentIcon sx={{ mr: 2, fontSize: 40, color: 'info.main' }} />
+        <Typography variant="h4" component="h1" fontWeight="bold" color="info.main">
+          Reports & Analytics
+        </Typography>
+      </Box>
 
       {/* Report Generation Controls */}
-      <Card sx={{ mb: 3 }}>
+      <Card
+        sx={{
+          mb: 3,
+          boxShadow: 3,
+          borderRadius: 3,
+          transition: 'all 0.3s ease',
+          '&:hover': { boxShadow: 6 },
+        }}
+      >
         <CardContent>
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h6" gutterBottom fontWeight="bold">
             Generate Reports
           </Typography>
           <Grid container spacing={3} alignItems="center">
@@ -254,7 +276,17 @@ const TeamLeaderReports = ({ user, onLogout }) => {
       {/* Performance Metrics Cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
+          <Card
+            sx={{
+              boxShadow: 3,
+              borderRadius: 3,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-2px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center">
                 <AssignmentIcon color="primary" sx={{ mr: 2, fontSize: 40 }} />
@@ -262,7 +294,7 @@ const TeamLeaderReports = ({ user, onLogout }) => {
                   <Typography color="textSecondary" gutterBottom>
                     Total Assignments
                   </Typography>
-                  <Typography variant="h4">
+                  <Typography variant="h4" fontWeight="bold">
                     {metrics.totalJobs}
                   </Typography>
                 </Box>
@@ -272,7 +304,17 @@ const TeamLeaderReports = ({ user, onLogout }) => {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
+          <Card
+            sx={{
+              boxShadow: 3,
+              borderRadius: 3,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-2px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center">
                 <TrendingUpIcon color="success" sx={{ mr: 2, fontSize: 40 }} />
@@ -280,7 +322,7 @@ const TeamLeaderReports = ({ user, onLogout }) => {
                   <Typography color="textSecondary" gutterBottom>
                     Completion Rate
                   </Typography>
-                  <Typography variant="h4">
+                  <Typography variant="h4" fontWeight="bold">
                     {metrics.completionRate}%
                   </Typography>
                   <LinearProgress
@@ -296,7 +338,17 @@ const TeamLeaderReports = ({ user, onLogout }) => {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
+          <Card
+            sx={{
+              boxShadow: 3,
+              borderRadius: 3,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-2px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center">
                 <AccessTimeIcon color="info" sx={{ mr: 2, fontSize: 40 }} />
@@ -304,7 +356,7 @@ const TeamLeaderReports = ({ user, onLogout }) => {
                   <Typography color="textSecondary" gutterBottom>
                     Avg Response Time
                   </Typography>
-                  <Typography variant="h4">
+                  <Typography variant="h4" fontWeight="bold">
                     {metrics.avgResponseTime}h
                   </Typography>
                 </Box>
@@ -314,7 +366,17 @@ const TeamLeaderReports = ({ user, onLogout }) => {
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <Card>
+          <Card
+            sx={{
+              boxShadow: 3,
+              borderRadius: 3,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-2px)',
+              },
+            }}
+          >
             <CardContent>
               <Box display="flex" alignItems="center">
                 <BarChartIcon color="warning" sx={{ mr: 2, fontSize: 40 }} />
@@ -322,7 +384,7 @@ const TeamLeaderReports = ({ user, onLogout }) => {
                   <Typography color="textSecondary" gutterBottom>
                     Completed Jobs
                   </Typography>
-                  <Typography variant="h4">
+                  <Typography variant="h4" fontWeight="bold">
                     {metrics.completedJobs}
                   </Typography>
                 </Box>
@@ -351,27 +413,41 @@ const TeamLeaderReports = ({ user, onLogout }) => {
           {filteredHistory.length === 0 ? (
             <Typography>No assignment history found for the selected date range.</Typography>
           ) : (
-            <TableContainer component={Paper}>
+            <TableContainer
+              component={Paper}
+              sx={{
+                boxShadow: 3,
+                borderRadius: 3,
+                overflow: 'hidden',
+              }}
+            >
               <Table>
-                <TableHead>
+                <TableHead sx={{ backgroundColor: 'primary.main' }}>
                   <TableRow>
-                    <TableCell>Incident</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>Assigned Date</TableCell>
-                    <TableCell>Started Date</TableCell>
-                    <TableCell>Completed Date</TableCell>
-                    <TableCell>Response Time</TableCell>
+                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Incident</TableCell>
+                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Status</TableCell>
+                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Assigned Date</TableCell>
+                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Started Date</TableCell>
+                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Completed Date</TableCell>
+                    <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Response Time</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {filteredHistory.map((assignment) => (
-                    <TableRow key={assignment.id}>
+                  {filteredHistory.map((assignment, index) => (
+                    <TableRow
+                      key={assignment.id}
+                      sx={{
+                        '&:nth-of-type(odd)': { backgroundColor: 'action.hover' },
+                        '&:hover': { backgroundColor: 'action.selected' },
+                      }}
+                    >
                       <TableCell>{assignment.incidentTitle}</TableCell>
                       <TableCell>
                         <Chip
                           label={assignment.status.replace('_', ' ')}
                           color={getStatusColor(assignment.status)}
                           size="small"
+                          variant="outlined"
                         />
                       </TableCell>
                       <TableCell>
@@ -413,9 +489,19 @@ const TeamLeaderReports = ({ user, onLogout }) => {
 
           <Grid container spacing={3}>
             <Grid item xs={12} md={6}>
-              <Card>
+              <Card
+                sx={{
+                  boxShadow: 3,
+                  borderRadius: 3,
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    boxShadow: 6,
+                    transform: 'translateY(-2px)',
+                  },
+                }}
+              >
                 <CardContent>
-                  <Typography variant="h6" gutterBottom>
+                  <Typography variant="h6" gutterBottom fontWeight="bold">
                     Completion Trends
                   </Typography>
                   <Box sx={{ mb: 2 }}>
@@ -443,9 +529,19 @@ const TeamLeaderReports = ({ user, onLogout }) => {
             </Grid>
 
             <Grid item xs={12} md={6}>
-              <Card>
+              <Card
+                sx={{
+                  boxShadow: 3,
+                  borderRadius: 3,
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    boxShadow: 6,
+                    transform: 'translateY(-2px)',
+                  },
+                }}
+              >
                 <CardContent>
-                  <Typography variant="h6" gutterBottom>
+                  <Typography variant="h6" gutterBottom fontWeight="bold">
                     Response Time Analysis
                   </Typography>
                   <Box sx={{ mb: 2 }}>
@@ -477,9 +573,19 @@ const TeamLeaderReports = ({ user, onLogout }) => {
           {workload && (
             <Grid container spacing={3}>
               <Grid item xs={12} md={6}>
-                <Card>
+                <Card
+                  sx={{
+                    boxShadow: 3,
+                    borderRadius: 3,
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      boxShadow: 6,
+                      transform: 'translateY(-2px)',
+                    },
+                  }}
+                >
                   <CardContent>
-                    <Typography variant="h6" gutterBottom>
+                    <Typography variant="h6" gutterBottom fontWeight="bold">
                       Current Workload Status
                     </Typography>
                     <Box sx={{ mb: 2 }}>
@@ -507,9 +613,19 @@ const TeamLeaderReports = ({ user, onLogout }) => {
               </Grid>
 
               <Grid item xs={12} md={6}>
-                <Card>
+                <Card
+                  sx={{
+                    boxShadow: 3,
+                    borderRadius: 3,
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      boxShadow: 6,
+                      transform: 'translateY(-2px)',
+                    },
+                  }}
+                >
                   <CardContent>
-                    <Typography variant="h6" gutterBottom>
+                    <Typography variant="h6" gutterBottom fontWeight="bold">
                       Workload Statistics
                     </Typography>
                     <Box sx={{ mb: 2 }}>

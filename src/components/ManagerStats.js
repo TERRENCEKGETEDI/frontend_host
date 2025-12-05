@@ -22,7 +22,8 @@ import {
   Groups as GroupsIcon,
   Assignment as AssignmentIcon,
   CheckCircle as CheckCircleIcon,
-  Refresh as RefreshIcon
+  Refresh as RefreshIcon,
+  Analytics as AnalyticsIcon
 } from '@mui/icons-material';
 import Layout from './Layout';
 import api from '../utils/api';
@@ -127,44 +128,89 @@ const ManagerStats = ({ user, onLogout }) => {
   return (
     <Layout user={user} onLogout={onLogout}>
       <Box sx={{ p: 3 }}>
-        <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
-          <Typography variant="h4" component="h1">
+        <Box
+          display="flex"
+          alignItems="center"
+          mb={4}
+          sx={{
+            p: 2,
+            backgroundColor: 'grey.50',
+            borderRadius: 2,
+            border: '1px solid',
+            borderColor: 'grey.200',
+          }}
+        >
+          <AnalyticsIcon sx={{ mr: 2, fontSize: 40, color: 'secondary.main' }} />
+          <Typography variant="h4" component="h1" fontWeight="bold" color="secondary.main">
             Statistics & Analytics
           </Typography>
-          <Box>
-            <Chip
-              icon={<RefreshIcon />}
-              label="Refresh"
-              onClick={fetchStats}
-              sx={{ mr: 1 }}
-            />
-          </Box>
+        </Box>
+
+        <Box display="flex" justifyContent="flex-end" mb={3}>
+          <Chip
+            icon={<RefreshIcon />}
+            label="Refresh"
+            onClick={fetchStats}
+            sx={{
+              fontWeight: 'bold',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              '&:hover': {
+                transform: 'translateY(-1px)',
+                boxShadow: 2,
+              },
+            }}
+          />
         </Box>
 
         {/* Summary Cards */}
         <Grid container spacing={3} sx={{ mb: 4 }}>
           <Grid item xs={12} sm={6} md={3}>
-            <Card>
+            <Card
+              sx={{
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                color: 'white',
+                boxShadow: 3,
+                borderRadius: 3,
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  boxShadow: 6,
+                  transform: 'translateY(-4px)',
+                },
+              }}
+            >
               <CardContent sx={{ textAlign: 'center' }}>
-                <AssignmentIcon color="primary" sx={{ fontSize: 40, mb: 1 }} />
-                <Typography variant="h4" color="primary">
+                <AssignmentIcon sx={{ fontSize: 50, mb: 1, color: 'white' }} />
+                <Typography variant="h3" fontWeight="bold">
                   {stats?.summary?.totalIncidents || 0}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="h6" sx={{ opacity: 0.9 }}>
                   Total Incidents
                 </Typography>
               </CardContent>
             </Card>
           </Grid>
-          
+
           <Grid item xs={12} sm={6} md={3}>
-            <Card>
+            <Card
+              sx={{
+                background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                color: 'white',
+                boxShadow: 3,
+                borderRadius: 3,
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  boxShadow: 6,
+                  transform: 'translateY(-4px)',
+                },
+              }}
+            >
               <CardContent sx={{ textAlign: 'center' }}>
-                <GroupsIcon color="primary" sx={{ fontSize: 40, mb: 1 }} />
-                <Typography variant="h4" color="primary">
+                <GroupsIcon sx={{ fontSize: 50, mb: 1, color: 'white' }} />
+                <Typography variant="h3" fontWeight="bold">
                   {stats?.summary?.totalTeams || 0}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="h6" sx={{ opacity: 0.9 }}>
                   Total Teams
                 </Typography>
               </CardContent>
@@ -172,13 +218,25 @@ const ManagerStats = ({ user, onLogout }) => {
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <Card>
+            <Card
+              sx={{
+                background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                color: 'white',
+                boxShadow: 3,
+                borderRadius: 3,
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  boxShadow: 6,
+                  transform: 'translateY(-4px)',
+                },
+              }}
+            >
               <CardContent sx={{ textAlign: 'center' }}>
-                <TrendingUpIcon color="primary" sx={{ fontSize: 40, mb: 1 }} />
-                <Typography variant="h4" color="primary">
+                <TrendingUpIcon sx={{ fontSize: 50, mb: 1, color: 'white' }} />
+                <Typography variant="h3" fontWeight="bold">
                   {stats?.summary?.totalMembers || 0}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="h6" sx={{ opacity: 0.9 }}>
                   Team Members
                 </Typography>
               </CardContent>
@@ -186,13 +244,25 @@ const ManagerStats = ({ user, onLogout }) => {
           </Grid>
 
           <Grid item xs={12} sm={6} md={3}>
-            <Card>
+            <Card
+              sx={{
+                background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                color: 'white',
+                boxShadow: 3,
+                borderRadius: 3,
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  boxShadow: 6,
+                  transform: 'translateY(-4px)',
+                },
+              }}
+            >
               <CardContent sx={{ textAlign: 'center' }}>
-                <CheckCircleIcon color="primary" sx={{ fontSize: 40, mb: 1 }} />
-                <Typography variant="h4" color="primary">
+                <CheckCircleIcon sx={{ fontSize: 50, mb: 1, color: 'white' }} />
+                <Typography variant="h3" fontWeight="bold">
                   {stats?.summary?.averageCompletionRate || 0}%
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="h6" sx={{ opacity: 0.9 }}>
                   Avg Completion Rate
                 </Typography>
               </CardContent>
@@ -203,42 +273,96 @@ const ManagerStats = ({ user, onLogout }) => {
         {/* Charts */}
         <Grid container spacing={3}>
           <Grid item xs={12} md={4}>
-            <Paper>
-              <SimpleBarChart 
-                data={stats?.incidentsPerDay} 
-                title="Incidents per Day (Last 7 Days)"
-                height={250}
-              />
-            </Paper>
+            <Card
+              sx={{
+                boxShadow: 3,
+                borderRadius: 3,
+                border: '1px solid',
+                borderColor: 'grey.200',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  boxShadow: 6,
+                  transform: 'translateY(-2px)',
+                },
+              }}
+            >
+              <CardContent>
+                <SimpleBarChart
+                  data={stats?.incidentsPerDay}
+                  title="Incidents per Day (Last 7 Days)"
+                  height={250}
+                />
+              </CardContent>
+            </Card>
           </Grid>
 
           <Grid item xs={12} md={4}>
-            <Paper>
-              <SimpleBarChart 
-                data={stats?.incidentsPerWeek} 
-                title="Incidents per Week (Last 4 Weeks)"
-                height={250}
-              />
-            </Paper>
+            <Card
+              sx={{
+                boxShadow: 3,
+                borderRadius: 3,
+                border: '1px solid',
+                borderColor: 'grey.200',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  boxShadow: 6,
+                  transform: 'translateY(-2px)',
+                },
+              }}
+            >
+              <CardContent>
+                <SimpleBarChart
+                  data={stats?.incidentsPerWeek}
+                  title="Incidents per Week (Last 4 Weeks)"
+                  height={250}
+                />
+              </CardContent>
+            </Card>
           </Grid>
 
           <Grid item xs={12} md={4}>
-            <Paper>
-              <SimpleBarChart 
-                data={stats?.incidentsPerMonth} 
-                title="Incidents per Month (Last 6 Months)"
-                height={250}
-              />
-            </Paper>
+            <Card
+              sx={{
+                boxShadow: 3,
+                borderRadius: 3,
+                border: '1px solid',
+                borderColor: 'grey.200',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  boxShadow: 6,
+                  transform: 'translateY(-2px)',
+                },
+              }}
+            >
+              <CardContent>
+                <SimpleBarChart
+                  data={stats?.incidentsPerMonth}
+                  title="Incidents per Month (Last 6 Months)"
+                  height={250}
+                />
+              </CardContent>
+            </Card>
           </Grid>
         </Grid>
 
         {/* Status Distribution */}
         <Grid container spacing={3} sx={{ mt: 2 }}>
           <Grid item xs={12} md={6}>
-            <Card>
+            <Card
+              sx={{
+                boxShadow: 3,
+                borderRadius: 3,
+                border: '1px solid',
+                borderColor: 'grey.200',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  boxShadow: 6,
+                  transform: 'translateY(-2px)',
+                },
+              }}
+            >
               <CardContent>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant="h6" gutterBottom fontWeight="bold">
                   Incident Status Distribution
                 </Typography>
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
@@ -248,6 +372,13 @@ const ManagerStats = ({ user, onLogout }) => {
                       label={`${status.replace('_', ' ').toUpperCase()}: ${count}`}
                       color={getStatusColor(status)}
                       variant="outlined"
+                      sx={{
+                        fontWeight: 'bold',
+                        transition: 'all 0.2s ease',
+                        '&:hover': {
+                          transform: 'scale(1.05)',
+                        },
+                      }}
                     />
                   ))}
                 </Box>
@@ -256,30 +387,49 @@ const ManagerStats = ({ user, onLogout }) => {
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <Card>
+            <Card
+              sx={{
+                boxShadow: 3,
+                borderRadius: 3,
+                border: '1px solid',
+                borderColor: 'grey.200',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  boxShadow: 6,
+                  transform: 'translateY(-2px)',
+                },
+              }}
+            >
               <CardContent>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant="h6" gutterBottom fontWeight="bold">
                   Recent Incidents
                 </Typography>
                 {stats?.recentIncidents && stats.recentIncidents.length > 0 ? (
                   <TableContainer>
                     <Table size="small">
-                      <TableHead>
+                      <TableHead sx={{ backgroundColor: 'grey.50' }}>
                         <TableRow>
-                          <TableCell>Title</TableCell>
-                          <TableCell>Status</TableCell>
-                          <TableCell>Date</TableCell>
+                          <TableCell sx={{ fontWeight: 'bold' }}>Title</TableCell>
+                          <TableCell sx={{ fontWeight: 'bold' }}>Status</TableCell>
+                          <TableCell sx={{ fontWeight: 'bold' }}>Date</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {stats.recentIncidents.map((incident) => (
-                          <TableRow key={incident.id}>
+                        {stats.recentIncidents.map((incident, index) => (
+                          <TableRow
+                            key={incident.id}
+                            sx={{
+                              '&:nth-of-type(odd)': { backgroundColor: 'action.hover' },
+                              '&:hover': { backgroundColor: 'action.selected' },
+                            }}
+                          >
                             <TableCell>{incident.title}</TableCell>
                             <TableCell>
                               <Chip
                                 label={incident.status.replace('_', ' ')}
                                 size="small"
                                 color={getStatusColor(incident.status)}
+                                variant="outlined"
                               />
                             </TableCell>
                             <TableCell>
@@ -291,9 +441,11 @@ const ManagerStats = ({ user, onLogout }) => {
                     </Table>
                   </TableContainer>
                 ) : (
-                  <Typography variant="body2" color="text.secondary">
-                    No recent incidents
-                  </Typography>
+                  <Box sx={{ textAlign: 'center', py: 3 }}>
+                    <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic' }}>
+                      No recent incidents
+                    </Typography>
+                  </Box>
                 )}
               </CardContent>
             </Card>
@@ -301,27 +453,46 @@ const ManagerStats = ({ user, onLogout }) => {
         </Grid>
 
         {/* Team Performance */}
-        <Card sx={{ mt: 3 }}>
+        <Card
+          sx={{
+            mt: 3,
+            boxShadow: 3,
+            borderRadius: 3,
+            border: '1px solid',
+            borderColor: 'grey.200',
+            transition: 'all 0.3s ease',
+            '&:hover': {
+              boxShadow: 6,
+              transform: 'translateY(-2px)',
+            },
+          }}
+        >
           <CardContent>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h6" gutterBottom fontWeight="bold">
               Team Performance
             </Typography>
             {stats?.teamStats && stats.teamStats.length > 0 ? (
               <TableContainer>
                 <Table>
-                  <TableHead>
+                  <TableHead sx={{ backgroundColor: 'primary.main' }}>
                     <TableRow>
-                      <TableCell>Team Name</TableCell>
-                      <TableCell align="center">Members</TableCell>
-                      <TableCell align="center">Total Jobs</TableCell>
-                      <TableCell align="center">Completed</TableCell>
-                      <TableCell align="center">Pending</TableCell>
-                      <TableCell align="center">Completion Rate</TableCell>
+                      <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Team Name</TableCell>
+                      <TableCell align="center" sx={{ color: 'white', fontWeight: 'bold' }}>Members</TableCell>
+                      <TableCell align="center" sx={{ color: 'white', fontWeight: 'bold' }}>Total Jobs</TableCell>
+                      <TableCell align="center" sx={{ color: 'white', fontWeight: 'bold' }}>Completed</TableCell>
+                      <TableCell align="center" sx={{ color: 'white', fontWeight: 'bold' }}>Pending</TableCell>
+                      <TableCell align="center" sx={{ color: 'white', fontWeight: 'bold' }}>Completion Rate</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {stats.teamStats.map((team) => (
-                      <TableRow key={team.id}>
+                    {stats.teamStats.map((team, index) => (
+                      <TableRow
+                        key={team.id}
+                        sx={{
+                          '&:nth-of-type(odd)': { backgroundColor: 'action.hover' },
+                          '&:hover': { backgroundColor: 'action.selected' },
+                        }}
+                      >
                         <TableCell>
                           <Typography variant="body1" fontWeight="medium">
                             {team.name}
@@ -336,6 +507,14 @@ const ManagerStats = ({ user, onLogout }) => {
                             label={`${team.completionRate}%`}
                             color={team.completionRate >= 80 ? 'success' : team.completionRate >= 50 ? 'warning' : 'error'}
                             size="small"
+                            variant="outlined"
+                            sx={{
+                              fontWeight: 'bold',
+                              transition: 'all 0.2s ease',
+                              '&:hover': {
+                                transform: 'scale(1.05)',
+                              },
+                            }}
                           />
                         </TableCell>
                       </TableRow>
@@ -344,9 +523,11 @@ const ManagerStats = ({ user, onLogout }) => {
                 </Table>
               </TableContainer>
             ) : (
-              <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', py: 2 }}>
-                No teams found
-              </Typography>
+              <Box sx={{ textAlign: 'center', py: 4 }}>
+                <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic' }}>
+                  No teams found
+                </Typography>
+              </Box>
             )}
           </CardContent>
         </Card>
