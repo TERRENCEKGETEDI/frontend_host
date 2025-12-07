@@ -1,8 +1,11 @@
 import axios from 'axios';
 
 // Create Axios instance with backend URL
+const baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
+console.log('API Base URL:', baseURL);
+
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5001/api', // Local development fallback
+  baseURL: baseURL, // Local development fallback
   withCredentials: true, // optional, mainly for cookies if used in future
 });
 
@@ -11,6 +14,7 @@ const api = axios.create({
 // ===========================
 api.interceptors.request.use(
   (config) => {
+    console.log('API Request Interceptor - Full URL:', config.baseURL + config.url);
     // Check for token in localStorage or sessionStorage
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (token) {

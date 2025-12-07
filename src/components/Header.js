@@ -38,6 +38,7 @@ import {
   Clear
 } from '@mui/icons-material';
 import { Link, useNavigate } from 'react-router-dom';
+import api from '../utils/api';
 
 const Header = ({ user, onLogout }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -54,16 +55,8 @@ const Header = ({ user, onLogout }) => {
       if (!user) return;
 
       try {
-        const response = await fetch('/api/notifications', {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token') || sessionStorage.getItem('token')}`
-          }
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setNotifications(data.data || []);
-        }
+        const response = await api.get('/notifications');
+        setNotifications(response.data.data || []);
       } catch (error) {
         console.error('Error loading notifications:', error);
       }
@@ -111,14 +104,9 @@ const Header = ({ user, onLogout }) => {
 
   const markAllNotificationsAsRead = async () => {
     try {
-      const response = await fetch('/api/notifications/read-all', {
-        method: 'PATCH',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token') || sessionStorage.getItem('token')}`
-        }
-      });
+      const response = await api.patch('/notifications/read-all');
 
-      if (response.ok) {
+      if (response.status === 200) {
         // Update local state
         const updated = notifications.map(n => ({ ...n, is_read: true, read_at: new Date().toISOString() }));
         setNotifications(updated);
@@ -130,14 +118,9 @@ const Header = ({ user, onLogout }) => {
 
   const handleClearNotification = async (notificationId) => {
     try {
-      const response = await fetch(`/api/notifications/${notificationId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token') || sessionStorage.getItem('token')}`
-        }
-      });
+      const response = await api.delete(`/notifications/${notificationId}`);
 
-      if (response.ok) {
+      if (response.status === 200) {
         // Update local state
         const updated = notifications.filter(n => n.id !== notificationId);
         setNotifications(updated);
@@ -151,12 +134,7 @@ const Header = ({ user, onLogout }) => {
     try {
       // Delete all notifications via API
       const deletePromises = notifications.map(notification =>
-        fetch(`/api/notifications/${notification.id}`, {
-          method: 'DELETE',
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token') || sessionStorage.getItem('token')}`
-          }
-        })
+        api.delete(`/notifications/${notification.id}`)
       );
 
       await Promise.all(deletePromises);
