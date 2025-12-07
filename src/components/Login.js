@@ -46,7 +46,7 @@ const Login = ({ onLogin }) => {
 
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" bgcolor="#e0f7f6">
+    <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" bgcolor="#e3f2fd">
       <Paper elevation={3} sx={{ p: 4, width: '100%', maxWidth: 400, borderRadius: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom align="center" color="primary">
           Incident Management Login

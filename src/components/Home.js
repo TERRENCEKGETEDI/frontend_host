@@ -153,7 +153,7 @@ const Home = () => {
             border: `2px solid ${theme.palette.primary.main}`,
             borderRadius: 4,
             p: 4,
-            backgroundColor: 'rgba(78, 205, 196, 0.2)',
+            backgroundColor: 'rgba(0, 123, 255, 0.2)',
             backdropFilter: 'blur(10px)',
             WebkitBackdropFilter: 'blur(10px)',
           }}
@@ -181,7 +181,7 @@ const Home = () => {
                   justifyContent: 'center',
                   transition: 'transform 0.2s, box-shadow 0.2s',
                   borderRadius: 4,
-                  backgroundColor: '#e0f7f6',
+                  backgroundColor: '#e3f2fd',
                   animation: `${wave} 3s ease-in-out infinite`,
                   '&:hover': {
                     transform: 'scale(1.05)',
@@ -212,13 +212,13 @@ const Home = () => {
 
         {/* Features Section */}
         <Box mb={8}>
-          <Typography variant="h3" component="h2" textAlign="center" gutterBottom sx={{ background: 'linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+          <Typography variant="h3" component="h2" textAlign="center" gutterBottom sx={{ background: 'linear-gradient(135deg, #007bff 0%, #0056b3 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
             Key Features
           </Typography>
           <Grid container spacing={3} justifyContent="center">
             {features.map((feature, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
-                <Card sx={{ height: '100%', textAlign: 'center', backgroundColor: '#e0f7f6', borderRadius: 4 }}>
+                <Card sx={{ height: '100%', textAlign: 'center', backgroundColor: '#e3f2fd', borderRadius: 4 }}>
                   <CardContent>
                     <Box sx={{ mb: 2 }}>
                       <feature.icon
@@ -243,11 +243,11 @@ const Home = () => {
 
         {/* FAQ Section */}
         <Box mb={4}>
-          <Typography variant="h3" component="h2" textAlign="center" gutterBottom sx={{ background: 'linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+          <Typography variant="h3" component="h2" textAlign="center" gutterBottom sx={{ background: 'linear-gradient(135deg, #007bff 0%, #0056b3 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
             Frequently Asked Questions
           </Typography>
           {faqs.map((faq, index) => (
-            <Accordion key={index} sx={{ mb: 1, backgroundColor: '#e0f7f6', borderRadius: 4 }}>
+            <Accordion key={index} sx={{ mb: 1, backgroundColor: '#e3f2fd', borderRadius: 4 }}>
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography variant="h6">{faq.question}</Typography>
               </AccordionSummary>

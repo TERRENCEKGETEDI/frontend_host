@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create Axios instance with backend URL
 const api = axios.create({
-  baseURL: 'https://backend-host-w8to.onrender.com/api', // Your Render backend
+  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5001/api', // Local development fallback
   withCredentials: true, // optional, mainly for cookies if used in future
 });
 

@@ -5,8 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Teal background for body */
-  background-color: #4ecdc4;
+  /* Blue background for body */
+  background-color: #007bff;
   min-height: 100vh;
 }
 

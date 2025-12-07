@@ -21,7 +21,8 @@ import {
   Timeline,
   Work,
   History,
-  Person
+  Person,
+  Message
 } from '@mui/icons-material';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -37,23 +38,27 @@ const Sidebar = ({ user, open, onClose }) => {
         { text: 'Users', icon: People, path: '/admin/users' },
         { text: 'Stats', icon: Assessment, path: '/admin/stats' },
         { text: 'Reports', icon: Description, path: '/admin/reports' },
+        { text: 'Messages', icon: Message, path: '/messages' },
       ],
       manager: [
         { text: 'Dashboard', icon: Dashboard, path: '/manager' },
         { text: 'Teams', icon: Group, path: '/manager/teams' },
         { text: 'Incidents', icon: Assignment, path: '/manager/incidents' },
         { text: 'Stats', icon: Assessment, path: '/manager/stats' },
+        { text: 'Messages', icon: Message, path: '/messages' },
       ],
       team_leader: [
         { text: 'Dashboard', icon: Dashboard, path: '/teamleader' },
         { text: 'Jobs', icon: Work, path: '/teamleader/jobs' },
         { text: 'Progress', icon: Timeline, path: '/teamleader/progress' },
         { text: 'Reports', icon: Description, path: '/teamleader/reports' },
+        { text: 'Messages', icon: Message, path: '/messages' },
       ],
       worker: [
         { text: 'Dashboard', icon: Dashboard, path: '/worker' },
         { text: 'My Jobs', icon: Work, path: '/worker/jobs' },
         { text: 'History', icon: History, path: '/worker/history' },
+        { text: 'Messages', icon: Message, path: '/messages' },
       ],
     };
     return items[user?.role] || [];

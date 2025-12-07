@@ -237,7 +237,7 @@ const TeamLeaderProgress = ({ user, onLogout }) => {
         <Grid item xs={12} sm={6} md={3}>
           <Card
             sx={{
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: 'linear-gradient(135deg, #007bff 0%, #0056b3 100%)',
               color: 'white',
               boxShadow: 3,
               borderRadius: 3,
@@ -272,7 +272,7 @@ const TeamLeaderProgress = ({ user, onLogout }) => {
         <Grid item xs={12} sm={6} md={3}>
           <Card
             sx={{
-              background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+              background: 'linear-gradient(135deg, #007bff 0%, #0056b3 100%)',
               color: 'white',
               boxShadow: 3,
               borderRadius: 3,
@@ -302,7 +302,7 @@ const TeamLeaderProgress = ({ user, onLogout }) => {
         <Grid item xs={12} sm={6} md={3}>
           <Card
             sx={{
-              background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+              background: 'linear-gradient(135deg, #007bff 0%, #0056b3 100%)',
               color: 'white',
               boxShadow: 3,
               borderRadius: 3,
@@ -332,7 +332,7 @@ const TeamLeaderProgress = ({ user, onLogout }) => {
         <Grid item xs={12} sm={6} md={3}>
           <Card
             sx={{
-              background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+              background: 'linear-gradient(135deg, #007bff 0%, #0056b3 100%)',
               color: 'white',
               boxShadow: 3,
               borderRadius: 3,

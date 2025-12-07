@@ -8,9 +8,6 @@ const Notifications = ({ user }) => {
   const hasConnectedRef = useRef(false);
 
   useEffect(() => {
-    // Temporarily disable socket connections to prevent reloading issues
-    // TODO: Fix socket connection stability
-    /*
     if (!user || hasConnectedRef.current) return;
 
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
@@ -72,8 +69,7 @@ const Notifications = ({ user }) => {
         hasConnectedRef.current = false;
       }
     };
-    */
-  }, []); // Empty dependency array - only run once on mount
+  }, [user]); // Add user to dependency array to reconnect when user changes
 
   // Global toast functions
   React.toast = {

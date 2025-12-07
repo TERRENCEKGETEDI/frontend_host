@@ -20,7 +20,7 @@ const Footer = () => {
         py: 3,
         px: 2,
         mt: 'auto',
-        backgroundColor: '#e0f7f6',
+        backgroundColor: '#e3f2fd',
         borderTop: `1px solid ${theme.palette.grey[300]}`,
       }}
     >

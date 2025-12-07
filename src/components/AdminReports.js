@@ -53,7 +53,7 @@ const AdminReports = ({ user, onLogout }) => {
           <Card
             sx={{
               height: '100%',
-              background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+              background: 'linear-gradient(135deg, #007bff 0%, #0056b3 100%)',
               color: 'white',
               boxShadow: 3,
               borderRadius: 3,
@@ -147,7 +147,7 @@ const AdminReports = ({ user, onLogout }) => {
           <Card
             sx={{
               height: '100%',
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: 'linear-gradient(135deg, #007bff 0%, #0056b3 100%)',
               color: 'white',
               boxShadow: 3,
               borderRadius: 3,
@@ -223,7 +223,7 @@ const AdminReports = ({ user, onLogout }) => {
           <Card
             sx={{
               height: '100%',
-              background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+              background: 'linear-gradient(135deg, #007bff 0%, #0056b3 100%)',
               color: 'white',
               boxShadow: 3,
               borderRadius: 3,
@@ -299,7 +299,7 @@ const AdminReports = ({ user, onLogout }) => {
           <Card
             sx={{
               height: '100%',
-              background: 'linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)',
+              background: 'linear-gradient(135deg, #007bff 0%, #0056b3 100%)',
               color: 'white',
               boxShadow: 3,
               borderRadius: 3,
@@ -375,8 +375,8 @@ const AdminReports = ({ user, onLogout }) => {
           <Card
             sx={{
               height: '100%',
-              background: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
-              color: 'primary.main',
+              background: 'linear-gradient(135deg, #007bff 0%, #0056b3 100%)',
+              color: 'white',
               boxShadow: 3,
               borderRadius: 3,
               transition: 'all 0.3s ease',
@@ -388,12 +388,12 @@ const AdminReports = ({ user, onLogout }) => {
           >
             <CardContent sx={{ p: 4 }}>
               <Box display="flex" alignItems="center" mb={3}>
-                <TrendingUpIcon sx={{ mr: 2, fontSize: 48, color: 'primary.main' }} />
+                <TrendingUpIcon sx={{ mr: 2, fontSize: 48, color: 'white' }} />
                 <Box>
                   <Typography variant="h5" fontWeight="bold" gutterBottom>
                     Analytics Report
                   </Typography>
-                  <Typography variant="body2" sx={{ opacity: 0.8 }}>
+                  <Typography variant="body2" sx={{ opacity: 0.9 }}>
                     Usage patterns and trend analysis
                   </Typography>
                 </Box>
@@ -403,9 +403,9 @@ const AdminReports = ({ user, onLogout }) => {
                 <Chip
                   label="Trend Analysis"
                   sx={{
-                    backgroundColor: 'rgba(25,118,210,0.1)',
-                    color: 'primary.main',
-                    border: '1px solid rgba(25,118,210,0.3)',
+                    backgroundColor: 'rgba(255,255,255,0.2)',
+                    color: 'white',
+                    border: '1px solid rgba(255,255,255,0.3)',
                     mr: 1,
                     mb: 1,
                   }}
@@ -413,9 +413,9 @@ const AdminReports = ({ user, onLogout }) => {
                 <Chip
                   label="Insights"
                   sx={{
-                    backgroundColor: 'rgba(25,118,210,0.1)',
-                    color: 'primary.main',
-                    border: '1px solid rgba(25,118,210,0.3)',
+                    backgroundColor: 'rgba(255,255,255,0.2)',
+                    color: 'white',
+                    border: '1px solid rgba(255,255,255,0.3)',
                     mr: 1,
                     mb: 1,
                   }}

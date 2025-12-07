@@ -20,23 +20,27 @@ const NavPanel = ({ role }) => {
       { to: '/admin/users', label: 'Users' },
       { to: '/admin/stats', label: 'Stats' },
       { to: '/admin/reports', label: 'Reports' },
+      { to: '/messages', label: 'Messages' },
     ],
     manager: [
       { to: '/manager', label: 'Dashboard' },
       { to: '/manager/teams', label: 'Teams' },
       { to: '/manager/incidents', label: 'Incidents' },
       { to: '/manager/stats', label: 'Stats' },
+      { to: '/messages', label: 'Messages' },
     ],
     team_leader: [
       { to: '/teamleader', label: 'Dashboard' },
       { to: '/teamleader/jobs', label: 'Jobs' },
       { to: '/teamleader/progress', label: 'Progress' },
       { to: '/teamleader/reports', label: 'Reports' },
+      { to: '/messages', label: 'Messages' },
     ],
     worker: [
       { to: '/worker', label: 'Dashboard' },
       { to: '/worker/jobs', label: 'My Jobs' },
       { to: '/worker/history', label: 'History' },
+      { to: '/messages', label: 'Messages' },
     ],
   };
 

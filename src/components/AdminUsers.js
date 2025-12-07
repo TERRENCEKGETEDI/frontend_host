@@ -307,11 +307,11 @@ const AdminUsers = ({ user, onLogout }) => {
           startIcon={<AddIcon />}
           onClick={() => setAddDialogOpen(true)}
           sx={{
-            background: 'linear-gradient(135deg, #4CAF50 0%, #45a049 100%)',
-            boxShadow: '0 4px 12px rgba(76, 175, 80, 0.3)',
+            background: 'linear-gradient(135deg, #007bff 0%, #0056b3 100%)',
+            boxShadow: '0 4px 12px rgba(0, 123, 255, 0.3)',
             '&:hover': {
-              background: 'linear-gradient(135deg, #45a049 0%, #3d8b40 100%)',
-              boxShadow: '0 6px 16px rgba(76, 175, 80, 0.4)',
+              background: 'linear-gradient(135deg, #0056b3 0%, #004085 100%)',
+              boxShadow: '0 6px 16px rgba(0, 123, 255, 0.4)',
               transform: 'translateY(-2px)',
             },
             transition: 'all 0.3s ease',
@@ -427,7 +427,7 @@ const AdminUsers = ({ user, onLogout }) => {
           <Table>
             <TableHead
               sx={{
-                background: 'linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)',
+                background: 'linear-gradient(135deg, #007bff 0%, #0056b3 100%)',
                 '& th': {
                   color: 'white',
                   fontWeight: 'bold',

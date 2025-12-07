@@ -22,14 +22,16 @@ import WorkerHistory from './components/WorkerHistory';
 import PublicIncident from './components/PublicIncident';
 import PublicProgress from './components/PublicProgress';
 import Profile from './components/Profile';
+import Notifications from './components/Notifications';
+import Messages from './components/Messages';
 import api from './utils/api';
 import './App.css';
 
-// Create theme with teal/blue colors
+// Create theme with blue colors
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#4ecdc4', // Teal (switched from green)
+      main: '#007bff', // Blue
     },
     secondary: {
       main: '#2196F3', // Blue
@@ -144,6 +146,7 @@ function AppContent() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <Notifications user={user} />
       <div className="App">
         {user ? (
           <Routes>
@@ -162,6 +165,7 @@ function AppContent() {
             <Route path="/worker" element={<ProtectedRoute user={user} allowedRoles={['worker']}><WorkerDashboard user={user} onLogout={handleLogout} /></ProtectedRoute>} />
             <Route path="/worker/jobs" element={<ProtectedRoute user={user} allowedRoles={['worker']}><WorkerJobs user={user} onLogout={handleLogout} /></ProtectedRoute>} />
             <Route path="/worker/history" element={<ProtectedRoute user={user} allowedRoles={['worker']}><WorkerHistory user={user} onLogout={handleLogout} /></ProtectedRoute>} />
+            <Route path="/messages" element={<ProtectedRoute user={user} allowedRoles={['admin', 'manager', 'team_leader', 'worker']}><Messages user={user} onLogout={handleLogout} /></ProtectedRoute>} />
             <Route path="/profile" element={<ProtectedRoute user={user} allowedRoles={['admin', 'manager', 'team_leader', 'worker']}><Profile user={user} onLogout={handleLogout} /></ProtectedRoute>} />
             <Route path="/" element={<Navigate to={getRolePath(user.role)} />} />
           </Routes>
