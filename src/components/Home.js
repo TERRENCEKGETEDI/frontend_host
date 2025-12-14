@@ -26,6 +26,7 @@ import {
   CheckCircle as CheckIcon,
   Speed as SpeedIcon,
   Security as SecurityIcon,
+  WhatsApp as WhatsAppIcon,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import Footer from './Footer';
@@ -75,6 +76,14 @@ const Home = () => {
       path: '/incident-report',
       color: 'error',
       description: 'Request urgent attention for critical issues'
+    },
+    {
+      title: 'Chat on WhatsApp',
+      icon: WhatsAppIcon,
+      external: true,
+      whatsappUrl: 'https://wa.me/27716669966?text=Hi',
+      color: 'success',
+      description: 'Get instant help via WhatsApp'
     }
   ];
 
@@ -169,7 +178,7 @@ const Home = () => {
         {/* Action Buttons */}
         <Grid container spacing={3} justifyContent="center" mb={8}>
           {actionButtons.map((button, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
+            <Grid item xs={12} sm={6} md={3} key={index}>
               <Paper
                 elevation={3}
                 sx={{
@@ -189,7 +198,13 @@ const Home = () => {
                   },
                   cursor: 'pointer'
                 }}
-                onClick={() => navigate(button.path)}
+                onClick={() => {
+                  if (button.external) {
+                    window.open(button.whatsappUrl, '_blank');
+                  } else {
+                    navigate(button.path);
+                  }
+                }}
               >
                 <Box sx={{ mb: 2 }}>
                   <button.icon
