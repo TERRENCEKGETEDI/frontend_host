@@ -33,7 +33,7 @@ const PublicProgress = () => {
   const validationSchema = Yup.object({
     trackingId: Yup.string()
       .required('Tracking ID is required')
-      .matches(/^[A-Z0-9]{8,12}$/, 'Invalid tracking ID format'),
+      .matches(/^INC\d{13}[A-Z0-9]{5}$/, 'Invalid tracking ID format (should be INC followed by 13 digits and 5 characters)'),
   });
 
   const handleSearch = async (values) => {
@@ -42,7 +42,7 @@ const PublicProgress = () => {
     setIncident(null);
 
     try {
-      const response = await api.get(`/incidents/status/${values.trackingId}`);
+      const response = await api.get(`/public/incidents/status/${values.trackingId}`);
       setIncident(response.data);
     } catch (err) {
       setError(err.response?.data?.error || 'Incident not found');
@@ -107,7 +107,7 @@ const PublicProgress = () => {
                     fullWidth
                     error={touched.trackingId && !!errors.trackingId}
                     helperText={touched.trackingId && errors.trackingId}
-                    placeholder="Enter your tracking ID (e.g., INC123456)"
+                    placeholder="Enter your tracking ID (e.g., INC1765674277167ABCDE)"
                   />
                 </Grid>
                 <Grid item xs={12} sm={4}>

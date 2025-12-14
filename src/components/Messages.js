@@ -207,16 +207,16 @@ const Messages = ({ user, onLogout }) => {
   return (
     <Layout user={user} onLogout={onLogout}>
       <Box sx={{ p: 3, maxWidth: 1200, mx: 'auto' }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-        <Typography variant="h4" component="h1">
+      <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: { xs: 'flex-start', md: 'space-between' }, alignItems: { xs: 'flex-start', md: 'center' }, gap: 2, mb: 3 }}>
+        <Typography variant={{ xs: 'h5', md: 'h4' }} component="h1">
           Messages
         </Typography>
-        <Box>
+        <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
           <Button
             variant="outlined"
             startIcon={<Refresh />}
             onClick={fetchMessages}
-            sx={{ mr: 2 }}
+            size="small"
           >
             Refresh
           </Button>
@@ -224,6 +224,7 @@ const Messages = ({ user, onLogout }) => {
             variant="contained"
             startIcon={<MessageIcon />}
             onClick={() => setSendDialogOpen(true)}
+            size="small"
           >
             New Message
           </Button>

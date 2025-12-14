@@ -21,6 +21,7 @@ import WorkerJobs from './components/WorkerJobs';
 import WorkerHistory from './components/WorkerHistory';
 import PublicIncident from './components/PublicIncident';
 import PublicProgress from './components/PublicProgress';
+import IncidentEscalation from './components/IncidentEscalation';
 import Profile from './components/Profile';
 import Notifications from './components/Notifications';
 import Messages from './components/Messages';
@@ -123,7 +124,7 @@ function AppContent() {
 
   // Redirect to home when user logs out, but not if already on public pages
   useEffect(() => {
-    const publicPaths = ['/', '/login', '/incident-report', '/incident-progress'];
+    const publicPaths = ['/', '/login', '/incident-report', '/incident-progress', '/incident-escalation'];
     if (!loading && !user && !publicPaths.includes(location.pathname)) {
       navigate('/');
     }
@@ -175,6 +176,7 @@ function AppContent() {
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/incident-report" element={<PublicIncident />} />
             <Route path="/incident-progress" element={<PublicProgress />} />
+            <Route path="/incident-escalation" element={<IncidentEscalation />} />
           </Routes>
         )}
       </div>

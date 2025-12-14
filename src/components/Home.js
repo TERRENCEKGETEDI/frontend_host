@@ -73,7 +73,7 @@ const Home = () => {
     {
       title: 'Escalate an Incident',
       icon: EscalateIcon,
-      path: '/incident-report',
+      path: '/incident-escalation',
       color: 'error',
       description: 'Request urgent attention for critical issues'
     },
@@ -126,8 +126,8 @@ const Home = () => {
       <AppBar position="fixed" color="primary" elevation={2}>
         <Toolbar>
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
-            <img src={Logo} alt="Logo" style={{ height: '40px', marginRight: '10px' }} />
-            <Typography variant="h6" component="div">
+            <img src={Logo} alt="Logo" style={{ height: '60px', marginRight: '10px' }} />
+            <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.7)' }}>
               AmanziGuard
             </Typography>
           </Box>
@@ -167,7 +167,7 @@ const Home = () => {
             WebkitBackdropFilter: 'blur(10px)',
           }}
         >
-          <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 'bold', background: 'linear-gradient(135deg, #2196F3 0%, #1976D2 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+          <Typography variant="h2" component="h1" gutterBottom sx={{ fontWeight: 'bold', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.7)' }}>
             Welcome to AmanziGuard
           </Typography>
           <Typography variant="h5" component="p" color="text.secondary" sx={{ mb: 4, maxWidth: 600, mx: 'auto' }}>
@@ -226,15 +226,17 @@ const Home = () => {
         </Grid>
 
         {/* Features Section */}
-        <Box mb={8}>
-          <Typography variant="h3" component="h2" textAlign="center" gutterBottom sx={{ background: 'linear-gradient(135deg, #007bff 0%, #0056b3 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-            Key Features
-          </Typography>
+        <Box mb={8} mt={8}>
+          <Box sx={{ border: `2px solid ${theme.palette.primary.main}`, borderRadius: 4, p: 2, backgroundColor: 'rgba(0, 123, 255, 0.2)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', display: 'inline-block', mx: 'auto', mb: 2 }}>
+            <Typography variant="h3" component="h2" textAlign="center" sx={{ fontWeight: 'bold', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.7)' }}>
+              Key Features
+            </Typography>
+          </Box>
           <Grid container spacing={3} justifyContent="center">
             {features.map((feature, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
-                <Card sx={{ height: '100%', textAlign: 'center', backgroundColor: '#e3f2fd', borderRadius: 4 }}>
-                  <CardContent>
+                <Card sx={{ height: '100%', minHeight: '250px', textAlign: 'center', backgroundColor: 'rgba(255,255,255,0.8)', borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%', boxShadow: '0 4px 8px rgba(0,0,0,0.1)', overflow: 'visible' }}>
+                  <CardContent sx={{ px: 4, pb: 64 }}>
                     <Box sx={{ mb: 2 }}>
                       <feature.icon
                         sx={{
@@ -246,7 +248,7 @@ const Home = () => {
                     <Typography variant="h6" component="h3" gutterBottom>
                       {feature.title}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" color="text.primary">
                       {feature.description}
                     </Typography>
                   </CardContent>
@@ -258,9 +260,11 @@ const Home = () => {
 
         {/* FAQ Section */}
         <Box mb={4}>
-          <Typography variant="h3" component="h2" textAlign="center" gutterBottom sx={{ background: 'linear-gradient(135deg, #007bff 0%, #0056b3 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-            Frequently Asked Questions
-          </Typography>
+          <Box sx={{ border: `2px solid ${theme.palette.primary.main}`, borderRadius: 4, p: 2, backgroundColor: 'rgba(0, 123, 255, 0.2)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', display: 'inline-block', mx: 'auto', mb: 2 }}>
+            <Typography variant="h3" component="h2" textAlign="center" sx={{ fontWeight: 'bold', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.7)' }}>
+              Frequently Asked Questions
+            </Typography>
+          </Box>
           {faqs.map((faq, index) => (
             <Accordion key={index} sx={{ mb: 1, backgroundColor: '#e3f2fd', borderRadius: 4 }}>
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>

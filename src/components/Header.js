@@ -24,6 +24,7 @@ import {
 import {
   Menu as MenuIcon,
   Notifications as NotificationsIcon,
+  Message,
   ExitToApp,
   Person,
   Dashboard,
@@ -39,17 +40,19 @@ import {
 } from '@mui/icons-material';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../utils/api';
+import Logo from '../amanziguard.png';
 
 const Header = ({ user, onLogout }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [notificationAnchorEl, setNotificationAnchorEl] = useState(null);
   const [notifications, setNotifications] = useState([]);
+  const [unreadMessages, setUnreadMessages] = useState(0);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
 
-  // Load notifications from API
+  // Load notifications and unread messages from API
   useEffect(() => {
     const loadNotifications = async () => {
       if (!user) return;
@@ -63,9 +66,13 @@ const Header = ({ user, onLogout }) => {
     };
 
     loadNotifications();
+    fetchUnreadMessages();
 
-    // Refresh notifications every 30 seconds
-    const interval = setInterval(loadNotifications, 30000);
+    // Refresh notifications and messages every 30 seconds
+    const interval = setInterval(() => {
+      loadNotifications();
+      fetchUnreadMessages();
+    }, 30000);
 
     return () => clearInterval(interval);
   }, [user]);
@@ -113,6 +120,15 @@ const Header = ({ user, onLogout }) => {
       }
     } catch (error) {
       console.error('Error marking notifications as read:', error);
+    }
+  };
+
+  const fetchUnreadMessages = async () => {
+    try {
+      const response = await api.get('/messages/unread-count');
+      setUnreadMessages(response.data.count);
+    } catch (error) {
+      console.error('Error fetching unread messages count:', error);
     }
   };
 
@@ -232,9 +248,14 @@ const Header = ({ user, onLogout }) => {
               <MenuIcon />
             </IconButton>
           )}
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            AmanziGuard
-          </Typography>
+          <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
+            <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
+              <img src={Logo} alt="Logo" style={{ height: '30px', marginRight: '10px' }} />
+              <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.7)' }}>
+                AmanziGuard
+              </Typography>
+            </Link>
+          </Box>
 
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <IconButton
@@ -245,6 +266,17 @@ const Header = ({ user, onLogout }) => {
             >
               <Badge badgeContent={notifications.filter(n => !n.is_read).length} color="error">
                 <NotificationsIcon />
+              </Badge>
+            </IconButton>
+
+            <IconButton
+              size="large"
+              aria-label="show messages"
+              color="inherit"
+              onClick={() => navigate('/messages')}
+            >
+              <Badge badgeContent={unreadMessages} color="error">
+                <Message />
               </Badge>
             </IconButton>
 

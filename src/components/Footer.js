@@ -8,6 +8,7 @@ import {
   Divider,
   useTheme
 } from '@mui/material';
+import Logo from '../amanziguard.png';
 
 const Footer = () => {
   const theme = useTheme();
@@ -27,9 +28,12 @@ const Footer = () => {
       <Container maxWidth="lg">
         <Grid container spacing={4}>
           <Grid size={{ xs: 12, sm: 4 }}>
-            <Typography variant="h6" color="text.primary" gutterBottom>
-              AmanziGuard
-            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+              <img src={Logo} alt="Logo" style={{ height: '30px', marginRight: '10px' }} />
+              <Typography variant="h6" color="text.primary">
+                AmanziGuard
+              </Typography>
+            </Box>
             <Typography variant="body2" color="text.secondary">
               Efficiently managing sewage incidents and maintenance for our community.
             </Typography>
@@ -65,7 +69,7 @@ const Footer = () => {
         </Grid>
         <Divider sx={{ my: 3 }} />
         <Typography variant="body2" color="text.secondary" align="center">
-          © {currentYear} AmanziGuard. All rights reserved.
+          © {currentYear} AmanziGuard®. All rights reserved.
         </Typography>
       </Container>
     </Box>
