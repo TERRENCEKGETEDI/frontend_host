@@ -81,7 +81,7 @@ const Home = () => {
       title: 'Chat on WhatsApp',
       icon: WhatsAppIcon,
       external: true,
-      whatsappUrl: 'https://wa.me/27716669966?text=Hi',
+      whatsappUrl: 'https://wa.me/14155238886?text=Hi',
       color: 'success',
       description: 'Get instant help via WhatsApp'
     }

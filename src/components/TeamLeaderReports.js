@@ -130,16 +130,33 @@ const TeamLeaderReports = ({ user, onLogout }) => {
 
   const handleDownloadReport = async () => {
     try {
-      // For now, this is a placeholder - the backend endpoint exists but may not be fully implemented
-      const res = await api.get('/teamleader/reports', {
+      const response = await api.get('/teamleader/reports', {
         params: {
           type: reportType,
           startDate: dateRange.startDate,
           endDate: dateRange.endDate
-        }
+        },
+        responseType: 'blob' // Important for file downloads
       });
-      showAlert('success', 'Report generated successfully');
-      // In a real implementation, this would trigger a file download
+
+      // Create a blob from the response data
+      const blob = new Blob([response.data], { type: 'text/csv' });
+
+      // Create a temporary URL for the blob
+      const url = window.URL.createObjectURL(blob);
+
+      // Create a temporary anchor element and trigger download
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${reportType}_report_${new Date().toISOString().split('T')[0]}.csv`;
+      document.body.appendChild(link);
+      link.click();
+
+      // Clean up
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      showAlert('success', 'Report downloaded successfully');
     } catch (error) {
       console.error('Error downloading report:', error);
       showAlert('error', 'Failed to generate report');

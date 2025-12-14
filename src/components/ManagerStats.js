@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Box,
   Typography,
@@ -15,7 +15,8 @@ import {
   TableHead,
   TableRow,
   Chip,
-  Divider
+  Divider,
+  Button
 } from '@mui/material';
 import {
   TrendingUp as TrendingUpIcon,
@@ -23,15 +24,19 @@ import {
   Assignment as AssignmentIcon,
   CheckCircle as CheckCircleIcon,
   Refresh as RefreshIcon,
-  Analytics as AnalyticsIcon
+  Analytics as AnalyticsIcon,
+  Download as DownloadIcon
 } from '@mui/icons-material';
 import Layout from './Layout';
 import api from '../utils/api';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 const ManagerStats = ({ user, onLogout }) => {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const reportRef = useRef();
 
   const fetchStats = async () => {
     try {
@@ -49,6 +54,40 @@ const ManagerStats = ({ user, onLogout }) => {
   useEffect(() => {
     fetchStats();
   }, []);
+
+  const downloadPDF = async () => {
+    if (!reportRef.current) return;
+
+    try {
+      const canvas = await html2canvas(reportRef.current, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+      });
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgWidth = 210;
+      const pageHeight = 295;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      pdf.save('manager_statistics_report.pdf');
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      setError('Failed to generate PDF report');
+    }
+  };
 
   const SimpleBarChart = ({ data, title, height = 200 }) => {
     if (!data || data.length === 0) {
@@ -127,7 +166,7 @@ const ManagerStats = ({ user, onLogout }) => {
 
   return (
     <Layout user={user} onLogout={onLogout}>
-      <Box sx={{ p: 3 }}>
+      <Box sx={{ p: 3 }} ref={reportRef}>
         <Box
           display="flex"
           alignItems="center"
@@ -146,7 +185,22 @@ const ManagerStats = ({ user, onLogout }) => {
           </Typography>
         </Box>
 
-        <Box display="flex" justifyContent="flex-end" mb={3}>
+        <Box display="flex" justifyContent="flex-end" mb={3} gap={2}>
+          <Button
+            variant="contained"
+            startIcon={<DownloadIcon />}
+            onClick={downloadPDF}
+            sx={{
+              fontWeight: 'bold',
+              transition: 'all 0.2s ease',
+              '&:hover': {
+                transform: 'translateY(-1px)',
+                boxShadow: 2,
+              },
+            }}
+          >
+            Download PDF Report
+          </Button>
           <Chip
             icon={<RefreshIcon />}
             label="Refresh"

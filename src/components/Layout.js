@@ -7,11 +7,16 @@ import Notifications from './Notifications';
 
 const Layout = ({ user, onLogout, children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleSidebarToggle = () => {
-    setSidebarOpen(!sidebarOpen);
+    if (isMobile) {
+      setSidebarOpen(!sidebarOpen);
+    } else {
+      setSidebarCollapsed(!sidebarCollapsed);
+    }
   };
 
   return (
@@ -23,6 +28,7 @@ const Layout = ({ user, onLogout, children }) => {
           user={user}
           open={sidebarOpen}
           onClose={handleSidebarToggle}
+          collapsed={sidebarCollapsed}
         />
 
         <Box
@@ -30,8 +36,8 @@ const Layout = ({ user, onLogout, children }) => {
           sx={{
             flexGrow: 1,
             p: 3,
-            width: { md: `calc(100% - 250px)` },
-            ml: { md: '250px' },
+            width: { md: `calc(100% - ${sidebarCollapsed ? 60 : 250}px)` },
+            ml: { md: `${sidebarCollapsed ? 60 : 250}px` },
             mt: '64px', // Account for fixed AppBar height
           }}
         >

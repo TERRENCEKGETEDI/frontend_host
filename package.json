@@ -16,6 +16,8 @@
     "date-fns": "^4.1.0",
     "firebase": "^12.6.0",
     "formik": "^2.4.9",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^3.0.4",
     "leaflet": "^1.9.4",
     "react": "^19.2.0",
     "react-chartjs-2": "^5.3.1",

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import {
   Drawer,
   List,
@@ -9,7 +9,8 @@ import {
   Typography,
   Box,
   useTheme,
-  useMediaQuery
+  useMediaQuery,
+  Badge
 } from '@mui/material';
 import {
   Dashboard,
@@ -25,11 +26,31 @@ import {
   Message
 } from '@mui/icons-material';
 import { Link, useLocation } from 'react-router-dom';
+import api from '../utils/api';
 
-const Sidebar = ({ user, open, onClose }) => {
+const Sidebar = ({ user, open, onClose, collapsed }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const location = useLocation();
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  const fetchUnreadCount = async () => {
+    try {
+      const response = await api.get('/messages/unread-count');
+      setUnreadCount(response.data.count);
+    } catch (error) {
+      console.error('Error fetching unread count:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      fetchUnreadCount();
+      // Poll every 30 seconds
+      const interval = setInterval(fetchUnreadCount, 30000);
+      return () => clearInterval(interval);
+    }
+  }, [user]);
 
   const navigationItems = useMemo(() => {
     const items = {
@@ -37,7 +58,7 @@ const Sidebar = ({ user, open, onClose }) => {
         { text: 'Dashboard', icon: Dashboard, path: '/admin' },
         { text: 'Users', icon: People, path: '/admin/users' },
         { text: 'Stats', icon: Assessment, path: '/admin/stats' },
-        { text: 'Reports', icon: Description, path: '/admin/reports' },
+        // { text: 'Reports', icon: Description, path: '/admin/reports' }, // Hidden for admin role
         { text: 'Messages', icon: Message, path: '/messages' },
       ],
       manager: [
@@ -65,13 +86,15 @@ const Sidebar = ({ user, open, onClose }) => {
   }, [user?.role]);
 
   const drawerContent = (
-    <Box sx={{ width: 250, height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <Box sx={{ p: 2 }}>
-        <Typography variant="h6" color="primary">
-          Navigation
-        </Typography>
-      </Box>
-      <Divider />
+    <Box sx={{ width: collapsed ? 60 : 250, height: '100%', display: 'flex', flexDirection: 'column' }}>
+      {!collapsed && (
+        <Box sx={{ p: 2 }}>
+          <Typography variant="h6" color="primary">
+            Navigation
+          </Typography>
+        </Box>
+      )}
+      {!collapsed && <Divider />}
 
       <List sx={{ flexGrow: 1 }}>
         {navigationItems.map((item) => {
@@ -93,12 +116,16 @@ const Sidebar = ({ user, open, onClose }) => {
               }}
             >
               <ListItemIcon sx={{ color: location.pathname === item.path ? theme.palette.primary.main : 'inherit' }}>
-                <IconComponent />
+                <Badge badgeContent={item.text === 'Messages' ? unreadCount : 0} color="error">
+                  <IconComponent />
+                </Badge>
               </ListItemIcon>
-              <ListItemText
-                primary={item.text}
-                sx={{ color: location.pathname === item.path ? theme.palette.primary.main : 'inherit' }}
-              />
+              {!collapsed && (
+                <ListItemText
+                  primary={item.text}
+                  sx={{ color: location.pathname === item.path ? theme.palette.primary.main : 'inherit' }}
+                />
+              )}
             </ListItem>
           );
         })}
@@ -115,7 +142,7 @@ const Sidebar = ({ user, open, onClose }) => {
           <ListItemIcon>
             <Person />
           </ListItemIcon>
-          <ListItemText primary="Profile" />
+          {!collapsed && <ListItemText primary="Profile" />}
         </ListItem>
       </List>
     </Box>
@@ -130,10 +157,10 @@ const Sidebar = ({ user, open, onClose }) => {
         keepMounted: true, // Better open performance on mobile.
       }}
       sx={{
-        width: isMobile ? 0 : 250,
+        width: isMobile ? 0 : (collapsed ? 60 : 250),
         flexShrink: 0,
         '& .MuiDrawer-paper': {
-          width: 250,
+          width: collapsed ? 60 : 250,
           boxSizing: 'border-box',
           top: 64, // Below AppBar
           height: 'calc(100% - 64px)',
