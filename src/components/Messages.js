@@ -43,7 +43,7 @@ import api from '../utils/api';
 
 // Get the API base URL for constructing attachment URLs
 const getApiBaseUrl = () => {
-  const baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const baseURL = process.env.REACT_APP_API_URL || 'https://backend-host-w8to.onrender.com/api';
   // Remove '/api' suffix to get the base server URL
   return baseURL.replace('/api', '');
 };
