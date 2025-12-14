@@ -14,14 +14,22 @@ import {
 import {
   PriorityHigh as EscalateIcon,
   Send as SendIcon,
+  Cancel as CancelIcon,
+  Home as HomeIcon,
 } from '@mui/icons-material';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 import api from '../utils/api';
 
 const IncidentEscalation = () => {
+  const navigate = useNavigate();
   const [submitStatus, setSubmitStatus] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const handleCancel = () => {
+    navigate('/');
+  };
 
   const validationSchema = Yup.object({
     incidentNumber: Yup.string()
@@ -64,20 +72,20 @@ const IncidentEscalation = () => {
   };
 
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
-      <Typography variant="h3" component="h1" gutterBottom align="center" color="primary">
+    <Container maxWidth="md" sx={{ py: 4, backgroundColor: '#f8f9fa', minHeight: '100vh' }}>
+      <Typography variant="h3" component="h1" gutterBottom align="center" sx={{ color: '#333', fontWeight: 'bold' }}>
         Escalate an Incident
       </Typography>
-      <Typography variant="body1" align="center" sx={{ mb: 4 }}>
+      <Typography variant="body1" align="center" sx={{ mb: 4, color: '#666' }}>
         Request urgent attention for critical incidents that need immediate manager intervention.
       </Typography>
 
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
-          <Paper sx={{ p: 3 }}>
+          <Paper sx={{ p: 3, backgroundColor: '#ffffff', boxShadow: '0 4px 12px rgba(0,0,0,0.15)', borderRadius: 3 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-              <EscalateIcon sx={{ fontSize: 32, color: 'error.main', mr: 2 }} />
-              <Typography variant="h5" component="h2">
+              <EscalateIcon sx={{ fontSize: 32, color: '#666', mr: 2 }} />
+              <Typography variant="h5" component="h2" sx={{ color: '#333', fontWeight: 'bold' }}>
                 Escalation Request
               </Typography>
             </Box>
@@ -103,6 +111,21 @@ const IncidentEscalation = () => {
                         error={touched.incidentNumber && !!errors.incidentNumber}
                         helperText={touched.incidentNumber && errors.incidentNumber}
                         placeholder="Enter your incident number (e.g., INC1765674277167ABCDE)"
+                        sx={{
+                          '& .MuiOutlinedInput-root': {
+                            borderRadius: 2,
+                            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                            '& fieldset': {
+                              border: 'none',
+                            },
+                            '&:hover': {
+                              boxShadow: '0 3px 6px rgba(0,0,0,0.15)',
+                            },
+                            '&.Mui-focused': {
+                              boxShadow: '0 3px 8px rgba(25,118,210,0.2)',
+                            },
+                          },
+                        }}
                       />
                     </Grid>
 
@@ -115,6 +138,21 @@ const IncidentEscalation = () => {
                         error={touched.fullName && !!errors.fullName}
                         helperText={touched.fullName && errors.fullName}
                         placeholder="Enter your full name"
+                        sx={{
+                          '& .MuiOutlinedInput-root': {
+                            borderRadius: 2,
+                            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                            '& fieldset': {
+                              border: 'none',
+                            },
+                            '&:hover': {
+                              boxShadow: '0 3px 6px rgba(0,0,0,0.15)',
+                            },
+                            '&.Mui-focused': {
+                              boxShadow: '0 3px 8px rgba(25,118,210,0.2)',
+                            },
+                          },
+                        }}
                       />
                     </Grid>
 
@@ -129,21 +167,68 @@ const IncidentEscalation = () => {
                         error={touched.description && !!errors.description}
                         helperText={touched.description && errors.description}
                         placeholder="Please describe why this incident needs urgent attention and any additional details..."
+                        sx={{
+                          '& .MuiOutlinedInput-root': {
+                            borderRadius: 2,
+                            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                            '& fieldset': {
+                              border: 'none',
+                            },
+                            '&:hover': {
+                              boxShadow: '0 3px 6px rgba(0,0,0,0.15)',
+                            },
+                            '&.Mui-focused': {
+                              boxShadow: '0 3px 8px rgba(25,118,210,0.2)',
+                            },
+                          },
+                        }}
                       />
                     </Grid>
 
                     <Grid item xs={12}>
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        color="error"
-                        fullWidth
-                        startIcon={<SendIcon />}
-                        disabled={loading}
-                        sx={{ py: 1.5, fontSize: '1.1rem' }}
-                      >
-                        {loading ? 'Submitting...' : 'Escalate Incident'}
-                      </Button>
+                      <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+                        <Button
+                          type="submit"
+                          variant="contained"
+                          color="primary"
+                          fullWidth
+                          startIcon={<SendIcon />}
+                          disabled={loading}
+                          sx={{
+                            py: 1.5,
+                            fontSize: '1.1rem',
+                            fontWeight: 'bold',
+                            backgroundColor: '#1976d2',
+                            borderRadius: 2,
+                            '&:hover': {
+                              backgroundColor: '#1565c0',
+                            }
+                          }}
+                        >
+                          {loading ? 'Submitting...' : 'Escalate Incident'}
+                        </Button>
+                        <Button
+                          variant="outlined"
+                          color="inherit"
+                          fullWidth
+                          startIcon={<HomeIcon />}
+                          onClick={handleCancel}
+                          disabled={loading}
+                          sx={{
+                            py: 1.5,
+                            fontSize: '1.1rem',
+                            borderColor: '#666',
+                            color: '#666',
+                            borderRadius: 2,
+                            '&:hover': {
+                              borderColor: '#999',
+                              backgroundColor: '#f5f5f5',
+                            }
+                          }}
+                        >
+                          Cancel & Go Home
+                        </Button>
+                      </Box>
                     </Grid>
                   </Grid>
                 </Form>
@@ -162,27 +247,27 @@ const IncidentEscalation = () => {
         </Grid>
 
         <Grid item xs={12} md={4}>
-          <Card sx={{ height: 'fit-content' }}>
+          <Card sx={{ height: 'fit-content', backgroundColor: '#ffffff', boxShadow: '0 4px 12px rgba(0,0,0,0.15)', borderRadius: 3 }}>
             <CardContent>
-              <Typography variant="h6" gutterBottom color="primary">
+              <Typography variant="h6" gutterBottom sx={{ color: '#333', fontWeight: 'bold' }}>
                 What happens when you escalate?
               </Typography>
               <Box sx={{ mb: 2 }}>
-                <Typography variant="body2" component="div" sx={{ mb: 1 }}>
+                <Typography variant="body2" component="div" sx={{ mb: 1, color: '#555' }}>
                   • Incident status is updated to "escalated"
                 </Typography>
-                <Typography variant="body2" component="div" sx={{ mb: 1 }}>
+                <Typography variant="body2" component="div" sx={{ mb: 1, color: '#555' }}>
                   • Managers are immediately notified
                 </Typography>
-                <Typography variant="body2" component="div" sx={{ mb: 1 }}>
+                <Typography variant="body2" component="div" sx={{ mb: 1, color: '#555' }}>
                   • Priority handling is assigned
                 </Typography>
-                <Typography variant="body2" component="div" sx={{ mb: 1 }}>
+                <Typography variant="body2" component="div" sx={{ mb: 1, color: '#555' }}>
                   • You will receive updates on progress
                 </Typography>
               </Box>
 
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" sx={{ color: '#666', fontStyle: 'italic' }}>
                 <strong>Note:</strong> Only use escalation for critical situations that require immediate manager attention.
               </Typography>
             </CardContent>
