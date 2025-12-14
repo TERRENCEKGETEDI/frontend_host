@@ -36,6 +36,13 @@ import {
 import Layout from './Layout';
 import api from '../utils/api';
 
+// Get the API base URL for constructing image URLs
+const getApiBaseUrl = () => {
+  const baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  // Remove '/api' suffix to get the base server URL
+  return baseURL.replace('/api', '');
+};
+
 const ManagerIncidents = ({ user, onLogout }) => {
   const [incidents, setIncidents] = useState([]);
   const [teams, setTeams] = useState([]);
@@ -56,7 +63,14 @@ const ManagerIncidents = ({ user, onLogout }) => {
         api.get('/manager/incidents'),
         api.get('/manager/teams')
       ]);
-      
+
+      console.log('DEBUG: Incidents data received:', incidentsResponse.data);
+      incidentsResponse.data.forEach(incident => {
+        if (incident.images) {
+          console.log(`DEBUG: Incident ${incident.id} has images: ${incident.images}`);
+        }
+      });
+
       setIncidents(incidentsResponse.data);
       setTeams(teamsResponse.data);
     } catch (err) {
@@ -290,6 +304,62 @@ const ManagerIncidents = ({ user, onLogout }) => {
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                       {incident.description}
                     </Typography>
+
+                    {incident.images && (
+                      <Paper
+                        variant="outlined"
+                        sx={{
+                          p: 2,
+                          mb: 2,
+                          borderRadius: 2,
+                          backgroundColor: 'grey.50',
+                        }}
+                      >
+                        <Typography variant="subtitle2" gutterBottom fontWeight="bold">
+                          Images:
+                        </Typography>
+                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 1 }}>
+                          {incident.images.split(',').map((imagePath, index) => {
+                            const trimmedPath = imagePath.trim();
+                            if (!trimmedPath) return null;
+
+                            // Handle different types of image paths
+                            let imageUrl;
+                            if (trimmedPath.startsWith('http')) {
+                              // External URL
+                              imageUrl = trimmedPath;
+                            } else if (trimmedPath.startsWith('uploads\\') || trimmedPath.startsWith('uploads/')) {
+                              // Local upload path - convert backslashes to forward slashes
+                              const filename = trimmedPath.replace('uploads\\', '').replace('uploads/', '');
+                              imageUrl = `${getApiBaseUrl()}/uploads/${filename}`;
+                            } else {
+                              // Fallback
+                              imageUrl = `${getApiBaseUrl()}/uploads/${trimmedPath}`;
+                            }
+
+                            return (
+                              <Box key={index} sx={{ position: 'relative' }}>
+                                <img
+                                  src={imageUrl}
+                                  alt={`Incident image ${index + 1}`}
+                                  style={{
+                                    width: '100px',
+                                    height: '100px',
+                                    objectFit: 'cover',
+                                    borderRadius: '8px',
+                                    border: '1px solid #ddd'
+                                  }}
+                                  onError={(e) => {
+                                    console.error(`Failed to load image: ${imageUrl}`);
+                                    e.target.style.display = 'none';
+                                  }}
+                                />
+                              </Box>
+                            );
+                          })}
+                        </Box>
+                      </Paper>
+                    )}
 
                     <Paper
                       variant="outlined"

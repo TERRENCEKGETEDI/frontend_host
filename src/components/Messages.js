@@ -41,6 +41,13 @@ import {
 import Layout from './Layout';
 import api from '../utils/api';
 
+// Get the API base URL for constructing attachment URLs
+const getApiBaseUrl = () => {
+  const baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  // Remove '/api' suffix to get the base server URL
+  return baseURL.replace('/api', '');
+};
+
 const Messages = ({ user, onLogout }) => {
   const [messages, setMessages] = useState([]);
   const [recipients, setRecipients] = useState([]);
@@ -75,6 +82,13 @@ const Messages = ({ user, onLogout }) => {
   const fetchMessages = async () => {
     try {
       const response = await api.get('/messages');
+      console.log('DEBUG: Messages data received:', response.data);
+      response.data.forEach(message => {
+        if (message.attachment_url) {
+          console.log(`DEBUG: Message ${message.id} has attachment: ${message.attachment_url}`);
+          console.log(`DEBUG: Constructed URL would be: http://localhost:5000${message.attachment_url}`);
+        }
+      });
       setMessages(response.data);
     } catch (error) {
       console.error('Error fetching messages:', error);
@@ -267,7 +281,7 @@ const Messages = ({ user, onLogout }) => {
                           {message.attachment_url && (
                             <Button
                               size="small"
-                              href={`http://localhost:5000${message.attachment_url}`}
+                              href={`${getApiBaseUrl()}${message.attachment_url}`}
                               target="_blank"
                               startIcon={<AttachFile />}
                             >
@@ -350,7 +364,7 @@ const Messages = ({ user, onLogout }) => {
                           {message.attachment_url && (
                             <Button
                               size="small"
-                              href={`http://localhost:5000${message.attachment_url}`}
+                              href={`${getApiBaseUrl()}${message.attachment_url}`}
                               target="_blank"
                               startIcon={<AttachFile />}
                             >
@@ -417,7 +431,7 @@ const Messages = ({ user, onLogout }) => {
                             {message.attachment_url && (
                               <Button
                                 size="small"
-                                href={`http://localhost:5000${message.attachment_url}`}
+                                href={`${getApiBaseUrl()}${message.attachment_url}`}
                                 target="_blank"
                                 startIcon={<AttachFile />}
                               >
