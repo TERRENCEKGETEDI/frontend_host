@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Create Axios instance with backend URL
-const baseURL = process.env.REACT_APP_API_URL || 'https://backend-host-w8to.onrender.com/api';
+const baseURL = 'https://backend-host-w8to.onrender.com/api';
 console.log('API Base URL:', baseURL);
 
 const api = axios.create({
